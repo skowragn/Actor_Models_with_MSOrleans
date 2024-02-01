@@ -1,0 +1,30 @@
+﻿@page "/bookedcarcart"
+@using CarsManager.Orleans.Domain
+
+<MudToolBar DisableGutters="true">
+    <MudText Typo="Typo.h4">All Car Reservations</MudText>
+    <MudSpacer />
+    <MudButton Variant="Variant.Outlined" StartIcon=@Icons.Filled.RemoveShoppingCart
+        Disabled=@(_carsItems?.Any() is false) Size=@Size.Large
+        Color="Color.Secondary" OnClick=@EmptyCartAsync>
+        Empty Cart
+    </MudButton>
+</MudToolBar>
+
+<MudGrid>
+    <MudItem xs="12" md="8">
+        <MudStack Spacing="8">
+            @foreach (var item in _carsItems ?? new HashSet<CarsBookedItem>())
+            {
+                <ReservationCartItem CarsBookedItem=@item
+                    OnRemoved=@OnItemRemovedAsync
+                    OnUpdated=@OnItemUpdatedAsync />
+            }
+            <MudDivider/>
+        </MudStack>
+    </MudItem>
+    <MudItem xs="12" md="4">
+        <ReservationCartSummary Items=_carsItems />
+    </MudItem>
+</MudGrid>
+

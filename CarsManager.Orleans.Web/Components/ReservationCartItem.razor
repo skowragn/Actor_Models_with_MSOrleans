@@ -1,0 +1,57 @@
+@using CarsManager.Orleans.Core
+@using CarsManager.Orleans.Domain
+<MudDivider/>
+<MudStack Row="true" Spacing="6">
+    <MudImage Src="@CarsBookedItem.Car.ImageUrl" Width="192" Height="192" Class="rounded" />
+    <MudGrid>
+        <MudItem xs="6">
+            <MudText Typo="Typo.subtitle1"><b>@CarsBookedItem.Car.Name</b></MudText>
+            <MudText Typo="Typo.body2">@CarsBookedItem.Car.Description</MudText>
+            <MudText Typo="Typo.body2">@CarsBookedItem.Car.Model</MudText>
+            <MudText Typo="Typo.body2">@CarsBookedItem.Car.Engine</MudText>
+        </MudItem>
+        <MudItem xs="2">
+            <MudNumericField Variant=Variant.Outlined Margin="Margin.Dense"
+                             Min="1" Max="@CarsBookedItem.Quantity" T="int" Value="_desiredQuantity" ValueChanged="SaveOnUpdateAsync" />
+        </MudItem>
+        <MudItem xs="4">
+            <MudStack AlignItems="AlignItems.End" Justify="Justify.SpaceBetween" Class="mud-height-full">
+                <MudText Typo="Typo.subtitle1">
+                    <b>@CarsBookedItem.Car.TotalPrice.ToString("C2")</b>
+                </MudText>
+                <MudButton OnClick=OnRemoveAsync Color="Color.Primary" Size="Size.Small">Remove</MudButton>
+            </MudStack>
+        </MudItem>
+    </MudGrid>
+</MudStack>
+
+@code {
+    int _desiredQuantity;
+    string Title => $"Update {CarsBookedItem.Car.Name} quantity in cart";
+
+    [Parameter, EditorRequired]
+    public CarsBookedItem CarsBookedItem { get; set; } = null!;
+
+    [Parameter, EditorRequired]
+    public EventCallback<CarDetails> OnRemoved { get; set; }
+
+    [Parameter, EditorRequired]
+    public EventCallback<(int Quantity, CarDetails Product)> OnUpdated { get; set; }
+
+    protected override void OnParametersSet() => _desiredQuantity = CarsBookedItem.Quantity;
+
+    Task SaveOnUpdateAsync(int value)
+    {
+        _desiredQuantity = value;
+        return TryInvokeDelegate(OnUpdated, (_desiredQuantity, CarsBookedItem.Car));
+    }
+
+    Task OnRemoveAsync() => TryInvokeDelegate(OnRemoved, CarsBookedItem.Car);
+
+    Task OnUpdateAsync() => TryInvokeDelegate(OnUpdated, (_desiredQuantity, CarsBookedItem.Car));
+
+    Task TryInvokeDelegate<TArg>(EventCallback<TArg> callback, TArg args) =>
+        callback.HasDelegate
+            ? callback.InvokeAsync(args)
+            : Task.CompletedTask;
+}

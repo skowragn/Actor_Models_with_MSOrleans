@@ -1,0 +1,94 @@
+@using CarsManager.Orleans.Domain
+@using CarsManager.Orleans.Domain.Extensions
+<MudStack>
+    <MudToolBar DisableGutters="true">
+        <MudText Typo="Typo.h4">@Title</MudText>
+        <MudSpacer />
+        <MudPaper Outlined="true" Class="flex-grow-1 pb-2 pl-3">
+            <MudTextField @bind-Value="_filter" Placeholder="Search cars" Adornment="Adornment.Start"
+                AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-n2" DisableUnderLine="true">
+            </MudTextField>
+        </MudPaper>
+    </MudToolBar>
+    <MudTable Items=@Cars Hover="true" Breakpoint="Breakpoint.Sm" AllowUnsorted=true
+        Context="car" Dense=true FixedHeader=true RowsPerPage=10 Filter=OnFilter SortLabel="Sort By" Outlined="true">
+        <HeaderContent>
+            <MudTh>Cars</MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy=@(new Func<CarDetails, object>(p => p.Name))>
+                    Name
+                </MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy=@(new Func<CarDetails, object>(p => p.Model))>
+                    Model
+                </MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy=@(new Func<CarDetails, object>(p => p.Engine))>
+                    Engine
+                </MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy=@(new Func<CarDetails, object>(p => p.Description))>
+                    Description
+                </MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy=@(new Func<CarDetails, object>(p => p.Quantity))>
+                    Quantity
+                </MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy=@(new Func<CarDetails, object>(p => p.Price))>
+                    Price
+                </MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy=@(new Func<CarDetails, object>(p => p.Currency))>
+                    Currency
+                </MudTableSortLabel>
+            </MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd>
+                <MudFab Disabled=@(IsInCart?.Invoke(car) ?? false) Size=Size.Small
+                    Color=Color.Primary Icon=@Icons.Filled.AddCard
+                        OnClick=@(async _ => await AddToCartAsync(car.Id)) />
+            </MudTd>
+            <MudTd DataLabel="Name">@car.Name</MudTd>
+            <MudTd DataLabel="Name">@car.Model</MudTd>
+            <MudTd DataLabel="Name">@car.Engine</MudTd>
+            <MudTd DataLabel="Description">@car.Description</MudTd>
+            <MudTd DataLabel="Quantity">@car.Quantity.ToString("N0")</MudTd>
+            <MudTd DataLabel="Price">@car.Price.ToString("C2")</MudTd>
+            <MudTd DataLabel="Price">@car.Currency</MudTd>
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager />
+        </PagerContent>
+    </MudTable>
+</MudStack>
+
+@code {
+    string? _filter;
+
+    [Parameter, EditorRequired]
+    public HashSet<CarDetails> Cars { get; set; } = null!;
+
+    [Parameter, EditorRequired]
+    public string Title { get; set; } = null!;
+    
+    [Parameter, EditorRequired]
+    public EventCallback<string> OnAddedToCart { get; set; }
+
+    [Parameter, EditorRequired]
+    public Func<CarDetails, bool> IsInCart { get; set; } = null!;
+
+    Task AddToCartAsync(string carId) =>
+        OnAddedToCart.HasDelegate
+            ? OnAddedToCart.InvokeAsync(carId)
+            : Task.CompletedTask;
+
+    bool OnFilter(CarDetails car) => car.MatchesFilter(_filter);
+}

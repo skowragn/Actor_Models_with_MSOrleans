@@ -1,0 +1,100 @@
+@using CarsManager.Orleans.Core
+@using CarsManager.Orleans.Domain
+@using CarsManager.Orleans.Domain.Extensions
+<MudDialog>
+    <DialogContent>
+        <MudForm @ref="_form" Model=@Cars autocomplete="off">
+            <MudTextField Label="Name" HelperText="Cars name"
+                          @bind-Value="Cars.Name" For="@(() => Cars.Name)" autocomplete="off" />
+            <MudTextField Label="Description" HelperText="Cars description"
+                          @bind-Value="Cars.Description" For="@(() => Cars.Description)" autocomplete="off" />
+            <MudSelect T="CarCategory" Label="Category" Variant=Variant.Text AnchorOrigin=Origin.BottomCenter>
+                @foreach (var category in Enum.GetValues<CarCategory>())
+                {
+                    <MudSelectItem T="CarCategory" Value=@category />
+                }
+            </MudSelect>
+            <MudNumericField @bind-Value=Cars.Model Label="Model" Variant="Variant.Text" />
+            <MudNumericField @bind-Value=Cars.Engine Label="Engine" Variant="Variant.Text" />
+            <MudNumericField @bind-Value=Cars.Quantity Label="Quantity" Variant="Variant.Text" />
+            <MudNumericField @bind-Value=Cars.Price Label="Price" Variant="Variant.Text" />
+            <MudNumericField @bind-Value=Cars.Currency Label="Currency" Variant="Variant.Text" />
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick=@Close Color=Color.Secondary Variant=Variant.Filled
+                   Size=Size.Large Disabled=@_isSaving>Cancel</MudButton>
+        <MudButton StartIcon=@Icons.Filled.Save
+                   Color=Color.Primary Size=Size.Large Variant=Variant.Filled
+                   OnClick=@Save Disabled=@_isSaving>
+            @if (_isSaving)
+            {
+                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                <MudText Class="ms-2">Saving</MudText>
+            }
+            else
+            {
+                <MudText>Save</MudText>
+            }
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    bool _isSaving;
+    MudForm? _form;
+
+    public CarDetails Cars { get; set; } = new();
+
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; } = null!;
+
+    [Parameter, EditorRequired]
+    public EventCallback<CarDetails> CarUpdated { get; set; }
+
+    [Inject]
+    public IDialogService DialogService { get; set; } = null!;
+
+    public void Open(string title, Func<CarDetails, Task> onCarUpdated) =>
+        DialogService.Show<CarModal>(
+            title, new DialogParameters()
+            {
+                { 
+                    nameof(CarUpdated),
+                    new EventCallbackFactory().Create(
+                        this, new Func<CarDetails, Task>(onCarUpdated)) 
+                }
+            });
+
+    public void Close() => MudDialog?.Cancel();
+
+    private Task Save()
+    {
+        if (_form is not null)
+        {
+            _form.Validate();
+            if (_form.IsValid)
+            {
+                return OnValidSubmitAsync();
+            }
+        }
+
+        return Task.CompletedTask;
+    }
+
+    private async Task OnValidSubmitAsync()
+    {
+        if (Cars is not null && CarUpdated.HasDelegate)
+        {
+            try
+            {
+                _isSaving = true;
+                await CarUpdated.InvokeAsync(Cars);
+            }
+            finally
+            {
+                _isSaving = false;
+                Close();
+            }
+        }
+    }
+}

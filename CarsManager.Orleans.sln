@@ -1,0 +1,78 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34407.89
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsManager.Orleans.Web", "CarsManager.Orleans.Web\CarsManager.Orleans.Web.csproj", "{B9FCDD9E-3229-4D7F-960F-3F87C740E2C7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsManager.Orleans.Domain", "CarsManager.Orleans.Domain\CarsManager.Orleans.Domain.csproj", "{D3D389B8-3309-43B2-BC90-5397E8FC3F7E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsManager.Orleans.Grains", "CarsManager.Orleans.Grains\CarsManager.Orleans.Grains.csproj", "{C1EA4798-C79D-40EF-BD61-2C5BA5EBEA5B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsManager.Orleans.Silo", "CarsManager.Orleans.Silo\CarsManager.Orleans.Silo.csproj", "{EAB3D8C8-95FE-4312-BE8B-466BF53365FC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsManager.Orleans.Infrastructure", "CarsManager.Orleans.Infrastructure\CarsManager.Orleans.Infrastructure.csproj", "{D138783B-4179-440C-B18F-58D432A00A49}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsManager.Orleans.Dashborad", "CarsManager.Orleans.Dashborad\CarsManager.Orleans.Dashborad.csproj", "{1E02E017-1B54-4608-8452-CD53B02F1FBF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{304DBC87-6CB1-47F5-A44C-894B76ED0C2E}"
+	ProjectSection(SolutionItems) = preProject
+		screenshot.jpeg = screenshot.jpeg
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsManager.Orleans.Devices.Signal.Gen", "CarsManager.Orleans.Devices.Signal.Gen\CarsManager.Orleans.Devices.Signal.Gen.csproj", "{71C39E86-AB6D-47DD-AD18-570E10395966}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsManager.Orleans.CarTracker.Silo", "CarsManager.Orleans.CarTracker.Silo\CarsManager.Orleans.CarTracker.Silo.csproj", "{F15A73EF-5B01-4D63-9BAC-4EFC3ADE587B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarManager.Orleans.Hubs", "CarManager.Orleans.Hubs\CarManager.Orleans.Hubs.csproj", "{FDAA5F9E-25C1-4FAA-8B2A-297B52CEDCB3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B9FCDD9E-3229-4D7F-960F-3F87C740E2C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9FCDD9E-3229-4D7F-960F-3F87C740E2C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9FCDD9E-3229-4D7F-960F-3F87C740E2C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9FCDD9E-3229-4D7F-960F-3F87C740E2C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3D389B8-3309-43B2-BC90-5397E8FC3F7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3D389B8-3309-43B2-BC90-5397E8FC3F7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3D389B8-3309-43B2-BC90-5397E8FC3F7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3D389B8-3309-43B2-BC90-5397E8FC3F7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1EA4798-C79D-40EF-BD61-2C5BA5EBEA5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1EA4798-C79D-40EF-BD61-2C5BA5EBEA5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1EA4798-C79D-40EF-BD61-2C5BA5EBEA5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1EA4798-C79D-40EF-BD61-2C5BA5EBEA5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAB3D8C8-95FE-4312-BE8B-466BF53365FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAB3D8C8-95FE-4312-BE8B-466BF53365FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAB3D8C8-95FE-4312-BE8B-466BF53365FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAB3D8C8-95FE-4312-BE8B-466BF53365FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D138783B-4179-440C-B18F-58D432A00A49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D138783B-4179-440C-B18F-58D432A00A49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D138783B-4179-440C-B18F-58D432A00A49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D138783B-4179-440C-B18F-58D432A00A49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E02E017-1B54-4608-8452-CD53B02F1FBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E02E017-1B54-4608-8452-CD53B02F1FBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E02E017-1B54-4608-8452-CD53B02F1FBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E02E017-1B54-4608-8452-CD53B02F1FBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71C39E86-AB6D-47DD-AD18-570E10395966}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71C39E86-AB6D-47DD-AD18-570E10395966}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71C39E86-AB6D-47DD-AD18-570E10395966}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71C39E86-AB6D-47DD-AD18-570E10395966}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F15A73EF-5B01-4D63-9BAC-4EFC3ADE587B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F15A73EF-5B01-4D63-9BAC-4EFC3ADE587B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F15A73EF-5B01-4D63-9BAC-4EFC3ADE587B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F15A73EF-5B01-4D63-9BAC-4EFC3ADE587B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDAA5F9E-25C1-4FAA-8B2A-297B52CEDCB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDAA5F9E-25C1-4FAA-8B2A-297B52CEDCB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDAA5F9E-25C1-4FAA-8B2A-297B52CEDCB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDAA5F9E-25C1-4FAA-8B2A-297B52CEDCB3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FA21D335-D886-4C91-A745-9823B46B7103}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,40 @@
+﻿@inject CarsBookedItemService CarsBookedItem
+
+<MudNavMenu Rounded="true" Margin=Margin.Normal Class="pa-2" Color=Color.Success>
+    
+    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Filled.InsertEmoticon">Home</MudNavLink>
+
+    <MudNavLink Href="Reservations" Icon="@Icons.Filled.Inventory">Reservations</MudNavLink>
+    
+    <MudNavLink Href="cars" Icon="@Icons.Filled.ProductionQuantityLimits">Cars</MudNavLink>
+    
+    <MudNavLink Href="BookedCarCart" Icon="@Icons.Filled.CarRental">
+        <MudBadge Color="Color.Tertiary" Overlap="true" Bordered="true" Content="@_count" Origin="Origin.CenterRight" Class="mud-width-full">
+            Booked Car Cart
+        </MudBadge>
+    </MudNavLink>
+    
+    <MudNavLink Href="cartracker" Icon="@Icons.Filled.GpsFixed">Tracker</MudNavLink>
+
+</MudNavMenu>
+
+@code {
+    int _count = 0;
+
+    [Inject]
+    public ComponentStateChangedObserver Observer { get; set; } = null!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Observer.OnStateChanged += UpdateCountAsync;
+
+        await UpdateCountAsync();
+    }
+
+    Task UpdateCountAsync() =>
+        InvokeAsync(async () =>
+        {
+            _count = await CarsBookedItem.GetCarsCountAsync();
+            StateHasChanged();
+        });
+}

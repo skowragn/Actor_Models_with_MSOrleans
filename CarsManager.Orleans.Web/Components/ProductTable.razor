@@ -1,0 +1,112 @@
+@using CarsManager.Orleans.Domain
+@using CarsManager.Orleans.Domain.Extensions
+
+<MudStack>
+    <MudToolBar DisableGutters="true">
+        <MudText Typo="Typo.h4">@Title</MudText>
+        <MudSpacer />
+        @ChildContent
+        <MudPaper Outlined="true" Class="flex-grow-1 pb-2 pl-3">
+            <MudTextField @bind-Value="_filter" Placeholder="Search cars" Adornment="Adornment.Start"
+                AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-n2" DisableUnderLine="true">
+            </MudTextField>
+        </MudPaper>
+    </MudToolBar>
+    <MudTable Items=@Cars Hover="true" Breakpoint="Breakpoint.Sm" AllowUnsorted=true Filter=OnFilter
+              CanCancelEdit=true Context="car" Dense=true FixedHeader=true RowsPerPage=10 RowEditCommit=OnEdit
+              RowEditPreview=BackupItem RowEditCancel=RevertEditChanges ReadOnly=false SortLabel="Sort By"
+              CancelEditTooltip="Discard changes..." CommitEditTooltip="Save changes..." Outlined="true"
+              IsEditRowSwitchingBlocked=true>
+        <HeaderContent>
+            <MudTh>
+                <MudTableSortLabel SortBy=@(new Func<CarDetails, object>(p => p.Name))>
+                    Name
+                </MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy=@(new Func<CarDetails, object>(p => p.Description))>
+                    Description
+                </MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy=@(new Func<CarDetails, object>(p => p.Quantity))>
+                    Quantity
+                </MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy=@(new Func<CarDetails, object>(p => p.Price))>
+                    Price
+                </MudTableSortLabel>
+            </MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Name">@car.Name</MudTd>
+            <MudTd DataLabel="Description">@car.Description</MudTd>
+            <MudTd DataLabel="Quantity">@car.Quantity.ToString("N0")</MudTd>
+            <MudTd DataLabel="Price">@car.Price.ToString("C2")</MudTd>
+        </RowTemplate>
+        <RowEditingTemplate>
+            <MudTd DataLabel="Name">
+                <MudTextField @bind-Value=@car.Name Required />
+            </MudTd>
+            <MudTd DataLabel="Description">
+                <MudTextField @bind-Value=@car.Description Required />
+            </MudTd>
+            <MudTd DataLabel="Quantity">
+                <MudNumericField @bind-Value=@car.Quantity Required Min="1" />
+            </MudTd>
+            <MudTd DataLabel="Price">
+                <MudNumericField T="decimal" @bind-Value=@car.Price Required Min="0.01m" />
+            </MudTd>
+        </RowEditingTemplate>
+        <PagerContent>
+            <MudTablePager />
+        </PagerContent>
+    </MudTable>
+</MudStack>
+
+@code {
+    string? _filter;
+
+    CarDetails? _productBeforeEdit;
+
+    [Parameter, EditorRequired]
+    public HashSet<CarDetails> Cars { get; set; } = null!;
+
+    [Parameter, EditorRequired]
+    public string Title { get; set; } = null!;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter, EditorRequired]
+    public EventCallback<CarDetails> EditCar { get; set; }
+
+    void OnEdit(object model)
+    {
+        if (model is CarDetails product &&
+            EditCar.HasDelegate)
+        {
+            _ = EditCar.InvokeAsync(product);
+        }
+    }
+
+    void BackupItem(object model)
+    {
+        if (model is CarDetails car)
+        {
+            _productBeforeEdit = car;
+        }
+    }
+
+    void RevertEditChanges(object model)
+    {
+        if (model is CarDetails car &&
+            _productBeforeEdit is not null)
+        {
+            model = _productBeforeEdit with { };
+        }
+    }
+
+    bool OnFilter(CarDetails car) => car.MatchesFilter(_filter);
+}

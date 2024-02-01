@@ -1,0 +1,58 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\Images\AlfaRomeo.jpg" />
+    <Content Remove="wwwroot\Images\Alpine.jpg" />
+    <Content Remove="wwwroot\Images\Bentley.jpg" />
+    <Content Remove="wwwroot\Images\BMW.jpg" />
+    <Content Remove="wwwroot\Images\BMW2.jpg" />
+    <Content Remove="wwwroot\Images\Jaguar.jpg" />
+    <Content Remove="wwwroot\Images\Mercedes.jpg" />
+    <Content Remove="wwwroot\Images\Porsche.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.10.4" />
+    <PackageReference Include="Blazor.Serialization" Version="8.0.0" />
+    <PackageReference Include="Blazor.LocalStorage" Version="8.0.0" />
+    <PackageReference Include="Bogus" Version="35.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.1" />
+    <PackageReference Include="Microsoft.JSInterop" Version="8.0.1" />
+    <PackageReference Include="MudBlazor" Version="6.12.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CarManager.Orleans.Hubs\CarManager.Orleans.Hubs.csproj" />
+    <ProjectReference Include="..\CarsManager.Orleans.Domain\CarsManager.Orleans.Domain.csproj" />
+    <ProjectReference Include="..\CarsManager.Orleans.Grains\CarsManager.Orleans.Grains.csproj" />
+    <ProjectReference Include="..\CarsManager.Orleans.Infrastructure\CarsManager.Orleans.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Images\AlfaRomeo.jpg" />
+    <None Include="wwwroot\Images\Alpine.jpg" />
+    <None Include="wwwroot\Images\Bentley.jpg" />
+    <None Include="wwwroot\Images\BMW.jpg" />
+    <None Include="wwwroot\Images\BMW2.jpg" />
+    <None Include="wwwroot\Images\Jaguar.jpg" />
+    <None Include="wwwroot\Images\Mercedes.jpg" />
+    <None Include="wwwroot\Images\Porsche.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\CarTracker.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\CarTracker.cshtml" />
+  </ItemGroup>
+
+</Project>

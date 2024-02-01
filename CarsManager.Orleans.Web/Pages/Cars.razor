@@ -1,0 +1,10 @@
+@page "/cars/{id?}"
+
+<ProductTable Title="Cars" Cars=@_cars EditCar=@OnEditCar>
+    <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add"
+        Color="Color.Primary" Size="Size.Large" DisableElevation="true" OnClick=@CreateNewCar>
+        Add New Car
+    </MudButton>
+    <MudDivider Vertical="true" FlexItem="true" Class="my-3 mx-4"/>
+</ProductTable>
+<CarModal @ref=_modal CarUpdated=@OnCarUpdated />
