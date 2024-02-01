@@ -3,7 +3,7 @@ using Orleans.Configuration;
 
 namespace CarsManager.Orleans.Infrastructure;
 
-public static class OrleansHostClientExtenstions
+public static class OrleansHostClientExtensions
 {
     public static IHostBuilder AddOrleansHostClient(this IHostBuilder silohost, IConfiguration configuration)
     {

@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsManager.Orleans.Silo", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsManager.Orleans.Infrastructure", "CarsManager.Orleans.Infrastructure\CarsManager.Orleans.Infrastructure.csproj", "{D138783B-4179-440C-B18F-58D432A00A49}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsManager.Orleans.Dashborad", "CarsManager.Orleans.Dashborad\CarsManager.Orleans.Dashborad.csproj", "{1E02E017-1B54-4608-8452-CD53B02F1FBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsManager.Orleans.Dashboard", "CarsManager.Orleans.Dashborad\CarsManager.Orleans.Dashboard.csproj", "{1E02E017-1B54-4608-8452-CD53B02F1FBF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{304DBC87-6CB1-47F5-A44C-894B76ED0C2E}"
 	ProjectSection(SolutionItems) = preProject
@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsManager.Orleans.Devices
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarsManager.Orleans.CarTracker.Silo", "CarsManager.Orleans.CarTracker.Silo\CarsManager.Orleans.CarTracker.Silo.csproj", "{F15A73EF-5B01-4D63-9BAC-4EFC3ADE587B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarManager.Orleans.Hubs", "CarManager.Orleans.Hubs\CarManager.Orleans.Hubs.csproj", "{FDAA5F9E-25C1-4FAA-8B2A-297B52CEDCB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarManager.Orleans.Hubs", "CarManager.Orleans.Hubs\CarManager.Orleans.Hubs.csproj", "{FDAA5F9E-25C1-4FAA-8B2A-297B52CEDCB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

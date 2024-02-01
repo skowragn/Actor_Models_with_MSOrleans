@@ -1,5 +1,3 @@
-using Orleans;
-using Orleans.Hosting;
 using CarsManager.Orleans.Grains;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,17 +10,21 @@ builder.Host.UseOrleans(
         if (context.HostingEnvironment.IsDevelopment())
         {
             siloBuilder.UseLocalhostClustering()
-                       .AddMemoryGrainStorage("car-reservations")
-                       .ConfigureApplicationParts(applicationParts => applicationParts.AddApplicationPart(typeof(CarGrain).Assembly).WithReferences())
-                       .UseDashboard(dashboardOptions => dashboardOptions.HostSelf = false);
+                .AddMemoryGrainStorage("car-reservations")
+               // .ConfigureApplicationParts(applicationParts => applicationParts.AddApplicationPart(typeof(CarGrain).Assembly).WithReferences())
+                .UseDashboard(dashboardOptions => dashboardOptions.HostSelf = false);
+
+
         }
         else
         {
             var storageConnectionString = builder.Configuration.GetValue<string>(EnvironmentVariables.AzureStorageConnectionString);
-            siloBuilder.HostSiloInAzure(builder.Configuration)
-                       .AddAzureTableGrainStorage(name: "car-reservations", options => options.ConfigureTableServiceClient(storageConnectionString))
-                       .ConfigureApplicationParts(applicationParts => applicationParts.AddApplicationPart(typeof(CarGrain).Assembly).WithReferences())
-                       .UseDashboard(dashboardOptions => dashboardOptions.HostSelf = false);
+
+            siloBuilder.UseLocalhostClustering()
+                .AddAzureTableGrainStorage(name: "car-reservations",
+                    options => options.ConfigureTableServiceClient(storageConnectionString))
+                //.ConfigureApplicationParts(applicationParts => applicationParts.AddApplicationPart(typeof(CarGrain).Assembly).WithReferences())
+               .UseDashboard(dashboardOptions => dashboardOptions.HostSelf = false);
         }
     });
 
