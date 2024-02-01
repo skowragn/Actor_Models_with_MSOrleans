@@ -27,3 +27,26 @@ The Orleans.ShoppingCart.Silo project uses the following open3rd party-source pr
 
 GPSTracker with Orleans:
 https://learn.microsoft.com/en-us/samples/dotnet/samples/orleans-gps-device-tracker-sample/
+
+
+https://blog.softwaremill.com/actor-model-and-event-sourcing-aa00993d2f1e
+ 
+https://finematics.com/actor-model-explained/
+ 
+https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/How-the-Actor-Model-works-by-example  
+ 
+https://www.oreilly.com/library/view/applied-akka-patterns/9781491934876/ch01.html
+
+Drinking a river of IoT data with Akka NET - Hannes Lowette - NDC Oslo 2021
+
+https://akshantalpm.github.io/Actor-Model-For-IoT/
+
+https://github.com/dotnet/orleans
+
+https://stately.ai/blog/what-is-the-actor-model 
+
+https://github.com/Azure-Samples/Orleans-Cluster-on-Azure-App-Service 
+![image](https://github.com/skowragn/Actor_Models_with_MSOrleans/assets/97020391/ec55ad83-7447-4b09-930b-e37a23aacf33)
+
+
+
