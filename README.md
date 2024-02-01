@@ -15,8 +15,10 @@ MS Orleans Dashborad:
 https://github.com/OrleansContrib/OrleansDashboard/
 
 MS Orleans eShop: 
-https://learn.microsoft.com/en-us/dotnet/orleans/deployment/
-https://learn.microsoft.com/en-us/dotnet/orleans/deployment/deploy-to-azure-app-service
+- https://learn.microsoft.com/en-us/dotnet/orleans/deployment/
+- https://learn.microsoft.com/en-us/dotnet/orleans/deployment/deploy-to-azure-app-service
+
+- https://github.com/dotnet/samples/tree/main/orleans/ShoppingCart
 
 The Orleans.ShoppingCart.Silo project uses the following open3rd party-source projects:
 
