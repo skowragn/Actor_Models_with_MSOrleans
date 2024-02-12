@@ -10,6 +10,13 @@
 
 **1. Solution**
    - Actor Models with MS Orleans (7.0.0) and ASP.NET Core 8 Blazor (.NET 8)
+
+<img width="614" alt="image" src="https://github.com/skowragn/Actor_Models_with_MSOrleans/assets/97020391/3fdad38c-d82e-474b-83ec-66645b1cbbeb">
+
+
+
+
+
      
 **2. References**
  - The following PoC has been done by using Microsoft source code examples as reference:
