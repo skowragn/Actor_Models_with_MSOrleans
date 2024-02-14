@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.SignalR;
 
-namespace CarManager.Orleans.Hubs.Hubs;
+namespace CarsManager.Orleans.Infrastructure;
 
 /// <summary>
 /// The hub which Web clients connect to to receive location updates. Messages are broadcast by <see cref="RemoteLocationHub"/> using <see cref="IHubContext{LocationHub}"/>.

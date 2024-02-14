@@ -1,5 +1,3 @@
-using CarsManager.Orleans.Grains;
-
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
@@ -11,7 +9,7 @@ builder.Host.UseOrleans(
         {
             siloBuilder.UseLocalhostClustering()
                 .AddMemoryGrainStorage("car-reservations")
-               // .ConfigureApplicationParts(applicationParts => applicationParts.AddApplicationPart(typeof(CarGrain).Assembly).WithReferences())
+                //.ConfigureApplicationParts(applicationParts => applicationParts.AddApplicationPart(typeof(CarGrain).Assembly).WithReferences())
                 .UseDashboard(dashboardOptions => dashboardOptions.HostSelf = false);
 
 

@@ -1,7 +1,8 @@
 ﻿using CarsManager.Orleans.Domain.CarsTracker;
 using Microsoft.AspNetCore.SignalR;
+using CarManager.Orleans.Domain;
 
-namespace CarManager.Orleans.Hubs.Hubs;
+namespace CarsManager.Orleans.Infrastructure;
 
 /// <summary>
 /// Broadcasts location messages to clients which are connected to the local SignalR hub.
@@ -12,7 +13,6 @@ public sealed class RemoteLocationHub : IRemoteLocationHub
 
     public RemoteLocationHub(IHubContext<LocationHub> hub) => _hub = hub;
 
-    // Send a message to every client which is connected to the hub
     public ValueTask BroadcastUpdates(VelocityBatch messages) =>
         new(_hub.Clients.All.SendAsync(
             "locationUpdates", messages, CancellationToken.None));

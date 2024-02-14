@@ -1,13 +1,13 @@
-﻿using CarManager.Orleans.Hubs.Hubs;
-using CarsManager.Orleans.Grains.CarTracker;
+﻿using CarsManager.Orleans.Grains.CarTracker;
+using CarManager.Orleans.Domain;
 using Microsoft.AspNetCore.SignalR;
 using Orleans.Concurrency;
 using Orleans.Runtime;
 
-namespace CarsManager.Orleans.Silo.Hubs;
+namespace CarsManager.Orleans.Infrastructure;
 
 [Reentrant]
-internal sealed class HubListUpdater : BackgroundService
+public sealed class HubListUpdater : BackgroundService
 {
     private readonly IGrainFactory _grainFactory;
     private readonly ILogger<HubListUpdater> _logger;
@@ -32,9 +32,6 @@ internal sealed class HubListUpdater : BackgroundService
         var localSiloAddress = _localSiloDetails.SiloAddress;
         IRemoteLocationHub selfReference = _grainFactory.CreateObjectReference<IRemoteLocationHub>(_locationBroadcaster) as IRemoteLocationHub;
 
-        // This runs in a loop because the HubListGrain does not use any form of persistence, so if the
-        // host which it is activated on stops, then it will lose any internal state.
-        // If HubListGrain was changed to use persistence, then this loop could be safely removed.
         while (!stoppingToken.IsCancellationRequested)
         {
             try
@@ -52,9 +49,9 @@ internal sealed class HubListUpdater : BackgroundService
                 {
                     await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
                 }
-                catch
+                catch (Exception exception) 
                 {
-                    // Ignore cancellation exceptions, since cancellation is handled by the outer loop.
+                    _logger.LogError(exception, "Error polling location hub list");
                 }
             }
         }

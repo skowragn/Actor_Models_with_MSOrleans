@@ -30,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CarManager.Orleans.Hubs\CarManager.Orleans.Hubs.csproj" />
     <ProjectReference Include="..\CarsManager.Orleans.Domain\CarsManager.Orleans.Domain.csproj" />
     <ProjectReference Include="..\CarsManager.Orleans.Grains\CarsManager.Orleans.Grains.csproj" />
     <ProjectReference Include="..\CarsManager.Orleans.Infrastructure\CarsManager.Orleans.Infrastructure.csproj" />

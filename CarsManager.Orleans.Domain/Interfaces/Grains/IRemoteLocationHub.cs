@@ -1,6 +1,6 @@
 ﻿using CarsManager.Orleans.Domain.CarsTracker;
 
-namespace CarManager.Orleans.Hubs.Hubs;
+namespace CarManager.Orleans.Domain;
 
 public interface IRemoteLocationHub : IGrainObserver
 {

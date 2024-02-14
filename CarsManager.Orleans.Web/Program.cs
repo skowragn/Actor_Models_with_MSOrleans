@@ -1,5 +1,3 @@
-using CarManager.Orleans.Hubs.Hubs;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddMudServices();
@@ -49,7 +47,5 @@ app.UseEndpoints(endpoints =>
     endpoints.MapBlazorHub();
     endpoints.MapFallbackToPage("/_Host");
 });
-
-//app.MapHub<LocationHub>("/locationHub");
 
 app.Run();

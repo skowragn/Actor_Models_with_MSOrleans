@@ -1,4 +1,4 @@
-using CarManager.Orleans.Hubs.Hubs;
+using CarManager.Orleans.Domain;
 using Orleans.Runtime;
 
 namespace CarsManager.Orleans.Grains.CarTracker;

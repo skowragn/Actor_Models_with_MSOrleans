@@ -1,4 +1,4 @@
-﻿using CarManager.Orleans.Hubs.Hubs;
+﻿using CarManager.Orleans.Domain;
 using CarsManager.Orleans.Domain.CarsTracker;
 using Microsoft.Extensions.Logging;
 using Orleans.Concurrency;
