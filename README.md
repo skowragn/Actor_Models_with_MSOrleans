@@ -62,4 +62,38 @@
       - https://stately.ai/blog/what-is-the-actor-model  
 
  **4. Current solution**
+  - **4.1 Frontend**
+    - **CarsManager.Orleans.Web**
+      - Based on : https://github.com/dotnet/samples/tree/main/orleans/ShoppingCart
+    - **Home**
+        ![image](https://github.com/skowragn/Actor_Models_with_MSOrleans/assets/97020391/c64e4b7d-dd83-4d88-91c7-8b1f4e8db8ef)
+      
+    - **Reservations**
+        ![image](https://github.com/skowragn/Actor_Models_with_MSOrleans/assets/97020391/86b3d254-05bf-4385-af05-f7115233106c)
+        ![image](https://github.com/skowragn/Actor_Models_with_MSOrleans/assets/97020391/b938b747-da2c-49fb-a9eb-22b26035bba3)
 
+    - **Cars**
+        ![image](https://github.com/skowragn/Actor_Models_with_MSOrleans/assets/97020391/43683a13-7b2e-41a6-88ae-7e36deee5acd)
+      
+    - **Booked Car Cart**
+        ![image](https://github.com/skowragn/Actor_Models_with_MSOrleans/assets/97020391/3b0bdc5f-5657-49e1-b02e-8d375b31e1fa)
+        ![image](https://github.com/skowragn/Actor_Models_with_MSOrleans/assets/97020391/15cf547c-858b-4139-80dc-255cff25f3b7)
+        ![image](https://github.com/skowragn/Actor_Models_with_MSOrleans/assets/97020391/c4f79f05-824e-4e11-901f-7bbc9ce4d319)
+
+
+    - **Tracker**
+        ![image](https://github.com/skowragn/Actor_Models_with_MSOrleans/assets/97020391/15501bae-23c2-44b3-ae29-e7b587ab15d6)
+        - Used from: https://learn.microsoft.com/en-us/samples/dotnet/samples/orleans-gps-device-tracker-sample/
+
+ - **4.2 Backend**
+     - **CarsManager.Orleans.Silo**
+     - **CarsManager.Orleans.Infrastructure**
+     - **CarsManager.Orleans.Grains**
+     - **CarsManager.Orleans.Domain**
+
+  - **4.3 Additional applications**
+     - **CarsManager.Orleans.Devices.Signal.Gen**
+         - Cars position simulation
+  
+     - **CarsManager.Orleans.Dashborad**
+         - Orleans Grains Dashboard
