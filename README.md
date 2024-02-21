@@ -42,14 +42,36 @@
        - https://github.com/OrleansContrib/OrleansDashboard/
 
    **3. Actor Model**
+   
      - **3.1 Actor Model pattern**
      
        - **Actor Model** => Conceptual model of concurrent computation (from 1973)
+         - Scalability through concurrency
+         - Loose coupling through asynchronous messaging
+         - State isolation
+         - Location transparency
+         
        - **Actor** => Fundamental unit of computaion; it has a private state
           - Allowed operations:
             - create another Actor
             - send a message
             - designnate how to handle the next message
+           
+           
+            <img width="413" alt="image" src="https://github.com/skowragn/Actor_Models_with_MSOrleans/assets/97020391/c800bad0-bab9-44fd-9ceb-90eed2f3c582">
+            
+
+             <img width="429" alt="image" src="https://github.com/skowragn/Actor_Models_with_MSOrleans/assets/97020391/7de7b27d-b8cb-48a6-874c-d3477dd40545">
+             
+         - **3.1.1 When to use**
+              - where several functions need to be run at once and have their results combined before final processing (fan-out/fan-in pattern)
+              - where several actors can be “workers”, waiting for messages from the “publisher” -pub/sub pattern
+              - where systems that need to manage several similar entities, like a multiplayer game where every player is represented as an actor
+         - **3.1.2 When not to use**
+              - when events order really matters, not promised in actor pattern
+              - if one of the actors fails, you’ll have to deal with the concern of rolling back events
+              - synchronous problems
+              - error handling can be tricky with actors (“let it crash” philosophy)
 
      - **3.2 Links**
       - https://blog.softwaremill.com/actor-model-and-event-sourcing-aa00993d2f1e
@@ -97,3 +119,16 @@
   
      - **CarsManager.Orleans.Dashborad**
          - Orleans Grains Dashboard
+      
+<img width="1259" alt="image" src="https://github.com/skowragn/Actor_Models_with_MSOrleans/assets/97020391/60525df7-6749-4a45-9bd1-44c1e9e5011c">
+
+
+
+ 
+ **5. Azure Cloud Deployment**
+<img width="902" alt="image" src="https://github.com/skowragn/Actor_Models_with_MSOrleans/assets/97020391/926b4bf2-3234-4fa6-b1fc-7ca3b765ee26">
+
+
+ 
+         - To be done asap
+
