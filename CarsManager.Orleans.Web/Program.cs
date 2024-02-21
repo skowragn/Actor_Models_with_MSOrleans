@@ -32,7 +32,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseDefaultFiles(); //ASK
+app.UseDefaultFiles(); 
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
