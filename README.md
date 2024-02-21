@@ -97,3 +97,8 @@
   
      - **CarsManager.Orleans.Dashborad**
          - Orleans Grains Dashboard
+      
+<img width="1259" alt="image" src="https://github.com/skowragn/Actor_Models_with_MSOrleans/assets/97020391/60525df7-6749-4a45-9bd1-44c1e9e5011c">
+ **5. Azure Cloud Deployment**
+         - To be done asap
+
