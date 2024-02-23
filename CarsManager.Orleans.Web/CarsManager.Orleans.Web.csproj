@@ -22,6 +22,7 @@
     <PackageReference Include="Blazor.Serialization" Version="8.0.0" />
     <PackageReference Include="Blazor.LocalStorage" Version="8.0.0" />
     <PackageReference Include="Bogus" Version="35.3.0" />
+    <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.1" />

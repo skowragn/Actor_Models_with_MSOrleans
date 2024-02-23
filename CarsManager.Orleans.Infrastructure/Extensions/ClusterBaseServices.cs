@@ -1,18 +1,17 @@
 ﻿using CarsManager.Orleans.Infrastructure.Extensions;
-using Orleans;
 
 namespace CarsManager.Orleans.Infrastructure.Services;
 
-public class BaseClusterService
+public class ClusterBaseServices 
 {
     private readonly IHttpContextAccessor _httpContextAccessor = null!;
-    protected readonly IClusterClient _client = null!;
+    private readonly IClusterClient _client = null!;
 
-    public BaseClusterService(
+    public ClusterBaseServices(
         IHttpContextAccessor httpContextAccessor, IClusterClient client) =>
         (_httpContextAccessor, _client) = (httpContextAccessor, client);
 
-    protected T TryUseGrain<TGrainInterface, T>(
+    public T TryUseGrain<TGrainInterface, T>(
         Func<TGrainInterface, T> useGrain, Func<T> defaultValue)
         where TGrainInterface : IGrainWithStringKey =>
          TryUseGrain(
@@ -20,7 +19,7 @@ public class BaseClusterService
              _httpContextAccessor.TryGetUserId(),
              defaultValue);
 
-    protected T TryUseGrain<TGrainInterface, T>(
+    public T TryUseGrain<TGrainInterface, T>(
         Func<TGrainInterface, T> useGrain,
         string? key,
         Func<T> defaultValue)

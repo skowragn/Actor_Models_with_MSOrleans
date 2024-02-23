@@ -1,4 +1,8 @@
+using DistributedCache.API.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCqrs();
 
 builder.Services.AddMudServices();
 builder.Services.AddHttpContextAccessor();
@@ -18,9 +22,7 @@ builder.Services.AddSession(options =>
 
 builder.Host.AddOrleansHostClient(builder.Configuration);
 
-builder.Services.AddSingleton<CarReservationService>();
-builder.Services.AddSingleton<CarsBookedItemService>();
-builder.Services.AddSingleton<CarService>();
+builder.Services.AddSingleton<ClusterBaseServices>();
 
 builder.Services.AddSignalR();
 

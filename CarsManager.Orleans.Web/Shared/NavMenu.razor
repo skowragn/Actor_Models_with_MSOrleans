@@ -1,4 +1,4 @@
-﻿@inject CarsBookedItemService CarsBookedItem
+﻿@inject IMediator Mediator
 
 <MudNavMenu Rounded="true" Margin=Margin.Normal Class="pa-2" Color=Color.Success>
     
@@ -34,7 +34,7 @@
     Task UpdateCountAsync() =>
         InvokeAsync(async () =>
         {
-            _count = await CarsBookedItem.GetCarsCountAsync();
+            _count = await Mediator.Send(new GetCarsCountQuery());
             StateHasChanged();
         });
 }

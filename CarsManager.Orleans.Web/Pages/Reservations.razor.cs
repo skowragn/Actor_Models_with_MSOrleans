@@ -1,5 +1,5 @@
 using CarsManager.Orleans.Domain;
-using CarsManager.Orleans.Infrastructure.Services;
+using CarsManager.Orleans.Infrustructure.Extensions.Cqrs.Queries;
 
 namespace CarsManager.Orleans.Web.Pages;
 
@@ -9,22 +9,18 @@ public sealed partial class Reservations
     private HashSet<CarsBookedItem>? _cartItems;
 
     [Inject]
-    public CarsBookedItemService CarBookedItemsService { get; set; } = null!;
-
-    [Inject]
-    public CarReservationService InventoryService { get; set; } = null!;
-
-    [Inject]
     public ComponentStateChangedObserver Observer { get; set; } = null!;
+
+    [Inject]
+    public IMediator Mediator { get; set; } = null!;
 
     [Inject]
     public ToastService ToastService { get; set; } = null!;
 
     protected override async Task OnInitializedAsync()
     {
-        _cars = await InventoryService.GetAllCarReservationsAsync();
-
-        _cartItems = await CarBookedItemsService.GetAllBookedCarsItemsAsync();
+        _cars = await Mediator.Send(new GetAllCarReservationsQuery());
+        _cartItems = await Mediator.Send(new GetAllBookedCarsItemsQuery());
     }
 
     private async Task OnAddedToCart(string productId)
@@ -35,10 +31,10 @@ public sealed partial class Reservations
             return;
         }
 
-        if (await CarBookedItemsService.AddOrUpdateBookedCarsItemAsync(1, car))
+        if (await Mediator.Send(new AddOrUpdateItemCommand(1, car)))
         {
-            _cars = await InventoryService.GetAllCarReservationsAsync();
-            _cartItems = await CarBookedItemsService.GetAllBookedCarsItemsAsync();
+            _cars = await Mediator.Send(new GetAllCarReservationsQuery());
+            _cartItems = await Mediator.Send(new GetAllBookedCarsItemsQuery());
 
             await ToastService.ShowToastAsync(
                 "Added to reservation",
