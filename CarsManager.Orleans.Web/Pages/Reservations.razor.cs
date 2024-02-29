@@ -1,5 +1,5 @@
 using CarsManager.Orleans.Domain;
-using CarsManager.Orleans.Infrustructure.Extensions.Cqrs.Queries;
+using CarsManager.Orleans.Application.Cqrs.Commands;
 
 namespace CarsManager.Orleans.Web.Pages;
 

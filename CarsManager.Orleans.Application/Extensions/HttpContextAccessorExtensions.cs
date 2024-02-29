@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace CarsManager.Orleans.Infrastructure.Extensions;
+namespace CarsManager.Orleans.Application.Extensions;
 
 internal static class HttpContextAccessorExtensions
 {

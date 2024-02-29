@@ -1,8 +1,8 @@
 ﻿using CarsManager.Orleans.Domain.Interfaces.Grains;
-using CarsManager.Orleans.Infrastructure.Extensions.Cqrs.Commands;
+using CarsManager.Orleans.Application.Cqrs.Commands;
 using MediatR;
 
-namespace CarsManager.Orleans.Infrustructure.Extensions.Cqrs.Queries.Handlers;
+namespace CarsManager.Orleans.Application.Extensions.Cqrs.Queries.Handlers;
 
 internal class CreateOrUpdateCarCommandHandler(IClusterClient client) : IRequestHandler<CreateOrUpdateCarCommand>
 {

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace CarsManager.Orleans.Infrustructure.Extensions.Cqrs.Queries;
+namespace CarsManager.Orleans.Application.Cqrs.Commands;
 
 public record EmptyCarsItemCommand : IRequest
 {

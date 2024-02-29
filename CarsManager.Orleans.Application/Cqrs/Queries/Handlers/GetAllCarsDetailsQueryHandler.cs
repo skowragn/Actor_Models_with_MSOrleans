@@ -2,7 +2,7 @@
 using CarsManager.Orleans.Domain.Interfaces.Grains;
 using MediatR;
 
-namespace CarsManager.Orleans.Infrustructure.Extensions.Cqrs.Queries.Handlers;
+namespace CarsManager.Orleans.Application.Cqrs.Queries.Handlers;
 
 internal class GetAllCarsDetailsQueryHandler(IClusterClient client) : IRequestHandler<GetAllCarReservationsQuery, HashSet<CarDetails>>
 {

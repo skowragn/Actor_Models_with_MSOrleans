@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace CarsManager.Orleans.Infrastructure.Extensions.Cqrs.Queries;
+namespace CarsManager.Orleans.Application.Cqrs.Queries;
 public record GetCarsCountQuery : IRequest<int>
 {
 }

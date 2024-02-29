@@ -1,9 +1,8 @@
 ﻿using CarsManager.Orleans.Core.Interfaces.Grains;
-using CarsManager.Orleans.Infrastructure.Extensions.Cqrs.Queries;
-using CarsManager.Orleans.Infrastructure.Services;
+using CarsManager.Orleans.Application.Services;
 using MediatR;
 
-namespace CarsManager.Orleans.Infrustructure.Extensions.Cqrs.Queries.Handlers;
+namespace CarsManager.Orleans.Application.Cqrs.Queries.Handlers;
 
 internal class GetCarsCountQueryHandler(ClusterBaseServices clusterBaseServices) : IRequestHandler<GetCarsCountQuery, int>
 {

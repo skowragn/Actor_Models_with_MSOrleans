@@ -1,8 +1,9 @@
 ﻿using CarsManager.Orleans.Core.Interfaces.Grains;
-using CarsManager.Orleans.Infrastructure.Services;
+using CarsManager.Orleans.Application.Services;
+using CarsManager.Orleans.Application.Cqrs.Commands;
 using MediatR;
 
-namespace CarsManager.Orleans.Infrustructure.Extensions.Cqrs.Queries.Handlers;
+namespace CarsManager.Orleans.Application.Extensions.Cqrs.Queries.Handlers;
 
 internal class EmptyCarsItemCommandHandler(ClusterBaseServices clusterBaseServices) : IRequestHandler<EmptyCarsItemCommand>
 {

@@ -1,6 +1,4 @@
-﻿using CarsManager.Orleans.Infrastructure.Extensions.Cqrs.Queries;
-using CarsManager.Orleans.Infrastructure.Services;
-using Orleans.Configuration;
+﻿using Orleans.Configuration;
 
 namespace CarsManager.Orleans.Infrastructure;
 
@@ -24,7 +22,7 @@ public static class OrleansHostClientExtensions
                     siloBuilder.Configure<ClusterOptions>(options =>
                     {
                         options.ClusterId = "CarReservationCluster";
-                        options.ServiceId = nameof(GetCarsCountQuery);
+                        options.ServiceId = nameof(OrleansHostExtenstions);
                     });
 
                     siloBuilder.UseAzureStorageClustering(

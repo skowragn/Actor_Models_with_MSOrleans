@@ -1,6 +1,4 @@
 ﻿using System.Net;
-using CarsManager.Orleans.Infrastructure.Extensions.Cqrs.Queries;
-using CarsManager.Orleans.Infrastructure.Services;
 using CarsManager.Orleans.Infrastructure.StartupTasks;
 using Orleans.Configuration;
 
@@ -40,7 +38,7 @@ public static class OrleansHostExtenstions
                         options =>
                         {
                             options.ClusterId = "CarReservationCluster";
-                            options.ServiceId = nameof(GetCarsCountQuery);
+                            options.ServiceId = nameof(OrleansHostExtenstions);
                         }).UseAzureStorageClustering(
                         options => options.ConfigureTableServiceClient(connectionString));
                 siloBuilder.AddAzureTableGrainStorage("car-reservations", options => options.ConfigureTableServiceClient(connectionString));

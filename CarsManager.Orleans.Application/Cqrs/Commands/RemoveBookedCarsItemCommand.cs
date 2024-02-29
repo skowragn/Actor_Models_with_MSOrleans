@@ -1,7 +1,7 @@
 ﻿using CarsManager.Orleans.Domain;
 using MediatR;
 
-namespace CarsManager.Orleans.Infrustructure.Extensions.Cqrs.Queries;
+namespace CarsManager.Orleans.Application.Cqrs.Commands;
 
 public record RemoveBookedCarsItemCommand(CarDetails Car) : IRequest
 {

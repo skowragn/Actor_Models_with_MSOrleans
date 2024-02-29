@@ -1,6 +1,6 @@
-﻿using CarsManager.Orleans.Infrastructure.Extensions;
+﻿using CarsManager.Orleans.Application.Extensions;
 
-namespace CarsManager.Orleans.Infrastructure.Services;
+namespace CarsManager.Orleans.Application.Services;
 
 public class ClusterBaseServices 
 {

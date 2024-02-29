@@ -1,8 +1,9 @@
 ﻿using CarsManager.Orleans.Core.Interfaces.Grains;
-using CarsManager.Orleans.Infrastructure.Services;
 using MediatR;
+using CarsManager.Orleans.Application.Services;
+using CarsManager.Orleans.Application.Cqrs.Commands;
 
-namespace CarsManager.Orleans.Infrustructure.Extensions.Cqrs.Queries.Handlers;
+namespace CarsManager.Orleans.IApplication.Extensions.Cqrs.Queries.Handlers;
 
 internal class AddOrUpdateItemCommandHandler(ClusterBaseServices clusterBaseServices) : IRequestHandler<AddOrUpdateItemCommand, bool>
 {
