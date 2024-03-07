@@ -8,7 +8,7 @@ builder.Host.UseOrleans(
         if (context.HostingEnvironment.IsDevelopment())
         {
             siloBuilder.UseLocalhostClustering()
-                       .AddMemoryGrainStorage("car-reservations")
+                       .AddMemoryGrainStorage(Defaults.CarReservations)
                        .UseDashboard(dashboardOptions => dashboardOptions.HostSelf = false);
         }
         else
@@ -16,7 +16,7 @@ builder.Host.UseOrleans(
             var storageConnectionString = builder.Configuration.GetValue<string>(EnvironmentVariables.AzureStorageConnectionString);
 
             siloBuilder.UseLocalhostClustering()
-                       .AddAzureTableGrainStorage(name: "car-reservations",options => options.ConfigureTableServiceClient(storageConnectionString))
+                       .AddAzureTableGrainStorage(name: Defaults.CarReservations, options => options.ConfigureTableServiceClient(storageConnectionString))
                        .UseDashboard(dashboardOptions => dashboardOptions.HostSelf = false);
         }
     });

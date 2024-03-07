@@ -21,7 +21,7 @@ public static class OrleansHostClientExtensions
                 {
                     siloBuilder.Configure<ClusterOptions>(options =>
                     {
-                        options.ClusterId = "CarReservationCluster";
+                        options.ClusterId = Defaults.ClusterId;
                         options.ServiceId = nameof(OrleansHostExtenstions);
                     });
 

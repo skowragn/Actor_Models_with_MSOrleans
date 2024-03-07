@@ -3,8 +3,11 @@
 public static class Defaults
 {
     public static string ClusterName => "Cluster";
+    public static string ClusterId => "CarReservationCluster";
     public static string ServiceName => "Service";
     public static string SiloName => "Silo";
+    public static string InstanceId => "InstanceId";
+    public static string CarReservations => "car-reservations";
     public static int SiloPort => 11111;
     public static int GatewayPort => 30000;
 }
