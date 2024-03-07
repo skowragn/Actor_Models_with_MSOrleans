@@ -17,6 +17,7 @@ public static class EnvironmentVariables
     public static string OrleansSiloPort => "ORLEANS_SILO_PORT";
     public static string OrleansPrimarySiloPort => "ORLEANS_PRIMARY_SILO_PORT";
     public static string OrleansSiloName => "ORLEANS_SILO_NAME";
+    public static string OrleansWebName => "ORLEANS_WEB_NAME";
     public static string OrleansGatewayPort => "ORLEANS_GATEWAY_PORT";
     public static string AzureStorageConnectionString => "ORLEANS_AZURE_STORAGE_CONNECTION_STRING";
     public static string WebAppsPrivateIpAddress => "WEBSITE_PRIVATE_IP";
