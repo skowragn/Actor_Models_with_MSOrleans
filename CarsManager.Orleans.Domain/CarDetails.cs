@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace CarsManager.Orleans.Domain;
+﻿namespace CarsManager.Orleans.Domain;
 
 
 [GenerateSerializer, Immutable]
@@ -29,23 +27,3 @@ public sealed record CarDetails
     [JsonIgnore]
     public decimal TotalPrice => Math.Round(Quantity * Price, 2);
 }
-
-
-/*[Immutable]
-public sealed record class CarDetails
-{
-    public string Id { get; set; } = null!;
-   public string Name { get; set; } = null!;
-    public string Description { get; set; } = null!;
-    public CarCategory Category { get; set; }
-    public int Quantity { get; set; }
-    public decimal Price { get; set; }
-    public string DetailsUrl { get; set; } = null!;
-    public string ImageUrl { get; set; } = null!;
-    public DateTime ProductionDate { get; set; } = DateTime.Now;
-
-    [JsonIgnore]
-    public decimal TotalPrice =>
-        Math.Round(Quantity * Price, 2);
-
-}*/
