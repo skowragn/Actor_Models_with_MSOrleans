@@ -1,3 +1,5 @@
+using CarsManager.Orleans.Web.Services.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCqrs();
@@ -11,6 +13,9 @@ builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddScoped<ComponentStateChangedObserver>();
 builder.Services.AddSingleton<ToastService>();
+
+builder.Services.AddScoped<ICarReservationsService, CarReservationsService>();
+builder.Services.AddScoped<IBookedCarsItemsService, CarBookedItemsService>();
 
 builder.Services.AddSession(options =>
 {

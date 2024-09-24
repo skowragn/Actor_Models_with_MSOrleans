@@ -1,13 +1,15 @@
 using CarsManager.Orleans.Domain;
 using CarsManager.Orleans.Domain.Extensions;
-using CarsManager.Orleans.Application.Cqrs.Commands;
 using CarsManager.Orleans.Web.Components;
+using CarsManager.Orleans.Web.Model;
+using CarsManager.Orleans.Web.Services.Interfaces;
+using CarsManager.Orleans.Web.Mapper;
 
 namespace CarsManager.Orleans.Web.Pages;
 
 public sealed partial class Cars
 {
-    private HashSet<CarDetails>? _cars;
+    private HashSet<CarsDetailsViewModel>? _cars;
     private CarModal? _modal;
 
     [Parameter]
@@ -17,30 +19,39 @@ public sealed partial class Cars
     public IDialogService DialogService  { get; set; } = null!;
 
     [Inject]
-    public IMediator Mediator { get; set; } = null!;
+    public ICarReservationsService CarReservationsService { get; set; } = null!;
 
-    protected override async Task OnInitializedAsync() => _cars = await Mediator.Send(new GetAllCarReservationsQuery());
+    protected override async Task OnInitializedAsync() => await RefreshCarsDetails();    
     private void CreateNewCar()
     {
         if (_modal is not null)
         {
-            var car = new CarDetails();
             var carMock = new CarDetailsDataGenerator().GetCar(CarTypes.Jaguar);
-            _modal.Cars = carMock;
+            _modal.Cars = carMock != null ? carMock.ToCarDetailsViewModel() : new CarsDetailsViewModel();
             _modal.Open("Create Car", OnCarUpdated);
         }
     }
 
-    private async Task OnCarUpdated(CarDetails car)
+    private async Task OnCarUpdated(CarsDetailsViewModel car)
     {
-        await Mediator.Send(new CreateOrUpdateCarCommand(car));
-        _cars = await Mediator.Send(new GetAllCarReservationsQuery());
+       await CarReservationsService.CreateOrUpdateCar(car);
+       await RefreshCarsDetails();
 
-        _modal?.Close();
 
-        StateHasChanged();
+       _modal?.Close();
+
+       StateHasChanged();
     }
 
-    private Task OnEditCar(CarDetails car) =>
+    private Task OnEditCar(CarsDetailsViewModel car) =>
         OnCarUpdated(car);
+
+    private async Task RefreshCarsDetails()
+    {
+        var carsDetails = await CarReservationsService.GetAllCarReservations();
+
+        if (carsDetails != null)
+            _cars = new HashSet<CarsDetailsViewModel>(carsDetails);
+    }
+
 }

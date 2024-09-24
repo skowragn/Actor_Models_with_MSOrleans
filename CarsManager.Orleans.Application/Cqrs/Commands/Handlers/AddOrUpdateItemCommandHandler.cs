@@ -13,8 +13,11 @@ internal class AddOrUpdateItemCommandHandler(ClusterBaseServices clusterBaseServ
     {
         ArgumentNullException.ThrowIfNull(request);
 
-       var carBookedItems = _clusterBaseServices.TryUseGrain<ICarsBookedItemGrain, Task<bool>>(
-           cart => cart.AddOrUpdateItemAsync(request.Quantity, request.Car),
+        var quantity = request.Quantity;
+        var carDetails = request.Car;
+
+        var carBookedItems = _clusterBaseServices.TryUseGrain<ICarsBookedItemGrain, Task<bool>>(
+           cart => cart.AddOrUpdateItemAsync(quantity, carDetails),
            () => Task.FromResult(false));
         return carBookedItems;
 

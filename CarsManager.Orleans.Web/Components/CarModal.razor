@@ -1,6 +1,7 @@
 @using CarsManager.Orleans.Core
 @using CarsManager.Orleans.Domain
 @using CarsManager.Orleans.Domain.Extensions
+@using CarsManager.Orleans.Web.Model;
 <MudDialog>
     <DialogContent>
         <MudForm @ref="_form" Model=@Cars autocomplete="off">
@@ -44,24 +45,24 @@
     bool _isSaving;
     MudForm? _form;
 
-    public CarDetails Cars { get; set; } = new();
+    public CarsDetailsViewModel Cars { get; set; } = new();
 
     [CascadingParameter] MudDialogInstance MudDialog { get; set; } = null!;
 
     [Parameter, EditorRequired]
-    public EventCallback<CarDetails> CarUpdated { get; set; }
+    public EventCallback<CarsDetailsViewModel> CarUpdated { get; set; }
 
     [Inject]
     public IDialogService DialogService { get; set; } = null!;
 
-    public void Open(string title, Func<CarDetails, Task> onCarUpdated) =>
+    public void Open(string title, Func<CarsDetailsViewModel, Task> onCarUpdated) =>
         DialogService.Show<CarModal>(
             title, new DialogParameters()
             {
                 { 
                     nameof(CarUpdated),
                     new EventCallbackFactory().Create(
-                        this, new Func<CarDetails, Task>(onCarUpdated)) 
+                        this, new Func<CarsDetailsViewModel, Task>(onCarUpdated))
                 }
             });
 

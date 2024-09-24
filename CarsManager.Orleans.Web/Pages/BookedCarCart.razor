@@ -1,5 +1,5 @@
 ﻿@page "/bookedcarcart"
-@using CarsManager.Orleans.Domain
+@using CarsManager.Orleans.Web.Model
 
 <MudToolBar DisableGutters="true">
     <MudText Typo="Typo.h4">All Car Reservations</MudText>
@@ -14,7 +14,7 @@
 <MudGrid>
     <MudItem xs="12" md="8">
         <MudStack Spacing="8">
-            @foreach (var item in _carsItems ?? new HashSet<CarsBookedItem>())
+            @foreach (var item in _carsItems ?? new HashSet<CarsBookedItemViewModel>())
             {
                 <ReservationCartItem CarsBookedItem=@item
                     OnRemoved=@OnItemRemovedAsync

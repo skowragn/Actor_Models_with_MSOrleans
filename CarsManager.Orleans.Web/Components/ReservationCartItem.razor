@@ -1,5 +1,5 @@
 @using CarsManager.Orleans.Core
-@using CarsManager.Orleans.Domain
+@using CarsManager.Orleans.Web.Model
 <MudDivider/>
 <MudStack Row="true" Spacing="6">
     <MudImage Src="@CarsBookedItem.Car.ImageUrl" Width="192" Height="192" Class="rounded" />
@@ -17,7 +17,7 @@
         <MudItem xs="4">
             <MudStack AlignItems="AlignItems.End" Justify="Justify.SpaceBetween" Class="mud-height-full">
                 <MudText Typo="Typo.subtitle1">
-                    <b>@CarsBookedItem.Car.TotalPrice.ToString("C2")</b>
+                    <b>@CarsBookedItem.TotalPrice.ToString("C2")</b>
                 </MudText>
                 <MudButton OnClick=OnRemoveAsync Color="Color.Primary" Size="Size.Small">Remove</MudButton>
             </MudStack>
@@ -30,13 +30,13 @@
     string Title => $"Update {CarsBookedItem.Car.Name} quantity in cart";
 
     [Parameter, EditorRequired]
-    public CarsBookedItem CarsBookedItem { get; set; } = null!;
+    public CarsBookedItemViewModel CarsBookedItem { get; set; } = null!;
 
     [Parameter, EditorRequired]
-    public EventCallback<CarDetails> OnRemoved { get; set; }
+    public EventCallback<CarsDetailsViewModel> OnRemoved { get; set; }
 
     [Parameter, EditorRequired]
-    public EventCallback<(int Quantity, CarDetails Product)> OnUpdated { get; set; }
+    public EventCallback<(int Quantity, CarsDetailsViewModel Product)> OnUpdated { get; set; }
 
     protected override void OnParametersSet() => _desiredQuantity = CarsBookedItem.Quantity;
 

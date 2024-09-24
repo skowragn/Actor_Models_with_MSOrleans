@@ -1,4 +1,6 @@
-﻿@inject IMediator Mediator
+﻿@using CarsManager.Orleans.Web.Services.Interfaces;
+
+@inject IBookedCarsItemsService CarBookedItemsService;
 
 <MudNavMenu Rounded="true" Margin=Margin.Normal Class="pa-2" Color=Color.Success>
     
@@ -34,7 +36,7 @@
     Task UpdateCountAsync() =>
         InvokeAsync(async () =>
         {
-            _count = await Mediator.Send(new GetCarsCountQuery());
+            _count = await CarBookedItemsService.GetCarsCount();
             StateHasChanged();
         });
 }

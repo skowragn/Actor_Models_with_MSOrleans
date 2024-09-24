@@ -1,5 +1,5 @@
 @using CarsManager.Orleans.Core
-@using CarsManager.Orleans.Domain
+@using CarsManager.Orleans.Web.Model
 <MudPaper Outlined="true" Class="flex-grow-1 px-4 pt-2 pb-4">
     <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
         <MudText Typo="Typo.h6">Reservation Summary</MudText>
@@ -44,5 +44,5 @@
     string _totalCost => Items?.Sum(x => x.TotalPrice).ToString("C2") ?? "$0.00";
 
     [Parameter, EditorRequired]
-    public HashSet<CarsBookedItem>? Items { get; set; }
+    public HashSet<CarsBookedItemViewModel>? Items { get; set; }
 }

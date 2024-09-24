@@ -1,5 +1,5 @@
-@using CarsManager.Orleans.Domain
 @using CarsManager.Orleans.Domain.Extensions
+@using CarsManager.Orleans.Web.Model;
 
 <MudStack>
     <MudToolBar DisableGutters="true">
@@ -12,29 +12,29 @@
             </MudTextField>
         </MudPaper>
     </MudToolBar>
-    <MudTable Items=@Cars Hover="true" Breakpoint="Breakpoint.Sm" AllowUnsorted=true Filter=OnFilter
+    <MudTable Items=@Cars Hover="true" Breakpoint="Breakpoint.Sm" AllowUnsorted=true 
               CanCancelEdit=true Context="car" Dense=true FixedHeader=true RowsPerPage=10 RowEditCommit=OnEdit
               RowEditPreview=BackupItem RowEditCancel=RevertEditChanges ReadOnly=false SortLabel="Sort By"
               CancelEditTooltip="Discard changes..." CommitEditTooltip="Save changes..." Outlined="true"
               IsEditRowSwitchingBlocked=true>
         <HeaderContent>
             <MudTh>
-                <MudTableSortLabel SortBy=@(new Func<CarDetails, object>(p => p.Name))>
+                <MudTableSortLabel SortBy=@(new Func<CarsDetailsViewModel, object>(p => p.Name))>
                     Name
                 </MudTableSortLabel>
             </MudTh>
             <MudTh>
-                <MudTableSortLabel SortBy=@(new Func<CarDetails, object>(p => p.Description))>
+                <MudTableSortLabel SortBy=@(new Func<CarsDetailsViewModel, object>(p => p.Description))>
                     Description
                 </MudTableSortLabel>
             </MudTh>
             <MudTh>
-                <MudTableSortLabel SortBy=@(new Func<CarDetails, object>(p => p.Quantity))>
+                <MudTableSortLabel SortBy=@(new Func<CarsDetailsViewModel, object>(p => p.Quantity))>
                     Quantity
                 </MudTableSortLabel>
             </MudTh>
             <MudTh>
-                <MudTableSortLabel SortBy=@(new Func<CarDetails, object>(p => p.Price))>
+                <MudTableSortLabel SortBy=@(new Func<CarsDetailsViewModel, object>(p => p.Price))>
                     Price
                 </MudTableSortLabel>
             </MudTh>
@@ -68,10 +68,10 @@
 @code {
     string? _filter;
 
-    CarDetails? _productBeforeEdit;
+    CarsDetailsViewModel? _productBeforeEdit;
 
     [Parameter, EditorRequired]
-    public HashSet<CarDetails> Cars { get; set; } = null!;
+    public HashSet<CarsDetailsViewModel> Cars { get; set; } = null!;
 
     [Parameter, EditorRequired]
     public string Title { get; set; } = null!;
@@ -80,11 +80,11 @@
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter, EditorRequired]
-    public EventCallback<CarDetails> EditCar { get; set; }
+    public EventCallback<CarsDetailsViewModel> EditCar { get; set; }
 
     void OnEdit(object model)
     {
-        if (model is CarDetails product &&
+        if (model is CarsDetailsViewModel product &&
             EditCar.HasDelegate)
         {
             _ = EditCar.InvokeAsync(product);
@@ -93,7 +93,7 @@
 
     void BackupItem(object model)
     {
-        if (model is CarDetails car)
+        if (model is CarsDetailsViewModel car)
         {
             _productBeforeEdit = car;
         }
@@ -101,12 +101,12 @@
 
     void RevertEditChanges(object model)
     {
-        if (model is CarDetails car &&
+        if (model is CarsDetailsViewModel car &&
             _productBeforeEdit is not null)
         {
-            model = _productBeforeEdit with { };
+            model = new CarsDetailsViewModel();
         }
     }
 
-    bool OnFilter(CarDetails car) => car.MatchesFilter(_filter);
+    //bool OnFilter(CarsDetailsViewModel car) => car.MatchesFilter(_filter);
 }

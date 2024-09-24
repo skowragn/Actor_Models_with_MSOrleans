@@ -1,44 +1,51 @@
-using CarsManager.Orleans.Domain;
-using CarsManager.Orleans.Application.Cqrs.Commands;
+using CarsManager.Orleans.Web.Services.Interfaces;
+using CarsManager.Orleans.Web.Model;
 
 namespace CarsManager.Orleans.Web.Pages;
 
     public partial class BookedCarCart
     {
-        private HashSet<CarsBookedItem>? _carsItems;
+    private HashSet<CarsBookedItemViewModel>? _carsItems;
 
-    [Inject]
-    public IMediator Mediator { get; set; } = null!;
+     [Inject]
+       public IBookedCarsItemsService BookedCarsItemsService { get; set; } = null!;
 
     [Inject]
         public ComponentStateChangedObserver Observer { get; set; } = null!;
 
         protected override Task OnInitializedAsync() => GetCartItemsAsync();
 
-        private Task GetCartItemsAsync() =>
-            InvokeAsync(async () =>
-            {
-                _carsItems = await Mediator.Send(new GetAllBookedCarsItemsQuery());
-                StateHasChanged();
-            });
-
-        private async Task OnItemRemovedAsync(CarDetails car)
+    private Task GetCartItemsAsync()
+    {
+        return InvokeAsync(async () =>
         {
-            await Mediator.Send(new RemoveBookedCarsItemCommand(car));
-            await Observer.NotifyStateChangedAsync();
+            var bookedCarsItems = await BookedCarsItemsService.GetAllBookedCarsItems();
 
-            _ = _carsItems?.RemoveWhere(item => item.Car == car);
-        }
+            if(bookedCarsItems!=null && bookedCarsItems.Any())
+            _carsItems = new HashSet<CarsBookedItemViewModel>(bookedCarsItems);
 
-        private async Task OnItemUpdatedAsync((int Quantity, CarDetails Product) tuple)
+            StateHasChanged();
+        });
+    }
+
+    private async Task OnItemRemovedAsync(CarsDetailsViewModel car)
+    {
+
+        await BookedCarsItemsService.RemoveBookedCarsItem(car);
+        await Observer.NotifyStateChangedAsync();
+
+        _ = _carsItems?.RemoveWhere(item => item.Car.Id == car.Id);
+    }
+
+        private async Task OnItemUpdatedAsync((int Quantity, CarsDetailsViewModel Product) tuple)
         {
-           await Mediator.Send(new AddOrUpdateItemCommand(tuple.Quantity, tuple.Product));
+           await BookedCarsItemsService.AddOrUpdateItem(tuple.Quantity, tuple.Product);
            await GetCartItemsAsync();
         }
 
         private async Task EmptyCartAsync()
         {
-           await Mediator.Send(new EmptyCarsItemCommand());
+           await BookedCarsItemsService.EmptyCarsItem();
            await Observer.NotifyStateChangedAsync();
 
             _carsItems?.Clear();

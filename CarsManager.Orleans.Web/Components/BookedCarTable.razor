@@ -1,5 +1,6 @@
-@using CarsManager.Orleans.Domain
 @using CarsManager.Orleans.Domain.Extensions
+@using CarsManager.Orleans.Web.Model
+
 <MudStack>
     <MudToolBar DisableGutters="true">
         <MudText Typo="Typo.h4">@Title</MudText>
@@ -11,41 +12,41 @@
         </MudPaper>
     </MudToolBar>
     <MudTable Items=@Cars Hover="true" Breakpoint="Breakpoint.Sm" AllowUnsorted=true
-        Context="car" Dense=true FixedHeader=true RowsPerPage=10 Filter=OnFilter SortLabel="Sort By" Outlined="true">
+        Context="car" Dense=true FixedHeader=true RowsPerPage=10 SortLabel="Sort By" Outlined="true">
         <HeaderContent>
             <MudTh>Cars</MudTh>
             <MudTh>
-                <MudTableSortLabel SortBy=@(new Func<CarDetails, object>(p => p.Name))>
+                <MudTableSortLabel SortBy=@(new Func<CarsDetailsViewModel, object>(p => p.Name))>
                     Name
                 </MudTableSortLabel>
             </MudTh>
             <MudTh>
-                <MudTableSortLabel SortBy=@(new Func<CarDetails, object>(p => p.Model))>
+                <MudTableSortLabel SortBy=@(new Func<CarsDetailsViewModel, object>(p => p.Model))>
                     Model
                 </MudTableSortLabel>
             </MudTh>
             <MudTh>
-                <MudTableSortLabel SortBy=@(new Func<CarDetails, object>(p => p.Engine))>
+                <MudTableSortLabel SortBy=@(new Func<CarsDetailsViewModel, object>(p => p.Engine))>
                     Engine
                 </MudTableSortLabel>
             </MudTh>
             <MudTh>
-                <MudTableSortLabel SortBy=@(new Func<CarDetails, object>(p => p.Description))>
+                <MudTableSortLabel SortBy=@(new Func<CarsDetailsViewModel, object>(p => p.Description))>
                     Description
                 </MudTableSortLabel>
             </MudTh>
             <MudTh>
-                <MudTableSortLabel SortBy=@(new Func<CarDetails, object>(p => p.Quantity))>
+                <MudTableSortLabel SortBy=@(new Func<CarsDetailsViewModel, object>(p => p.Quantity))>
                     Quantity
                 </MudTableSortLabel>
             </MudTh>
             <MudTh>
-                <MudTableSortLabel SortBy=@(new Func<CarDetails, object>(p => p.Price))>
+                <MudTableSortLabel SortBy=@(new Func<CarsDetailsViewModel, object>(p => p.Price))>
                     Price
                 </MudTableSortLabel>
             </MudTh>
             <MudTh>
-                <MudTableSortLabel SortBy=@(new Func<CarDetails, object>(p => p.Currency))>
+                <MudTableSortLabel SortBy=@(new Func<CarsDetailsViewModel, object>(p => p.Currency))>
                     Currency
                 </MudTableSortLabel>
             </MudTh>
@@ -74,7 +75,7 @@
     string? _filter;
 
     [Parameter, EditorRequired]
-    public HashSet<CarDetails> Cars { get; set; } = null!;
+    public IEnumerable<CarsDetailsViewModel> Cars { get; set; } = null!;
 
     [Parameter, EditorRequired]
     public string Title { get; set; } = null!;
@@ -83,12 +84,12 @@
     public EventCallback<string> OnAddedToCart { get; set; }
 
     [Parameter, EditorRequired]
-    public Func<CarDetails, bool> IsInCart { get; set; } = null!;
+    public Func<CarsDetailsViewModel, bool> IsInCart { get; set; } = null!;
 
     Task AddToCartAsync(string carId) =>
         OnAddedToCart.HasDelegate
             ? OnAddedToCart.InvokeAsync(carId)
             : Task.CompletedTask;
 
-    bool OnFilter(CarDetails car) => car.MatchesFilter(_filter);
+    //bool OnFilter(CarsDetailsViewModel car) => car.MatchesFilter(_filter);
 }

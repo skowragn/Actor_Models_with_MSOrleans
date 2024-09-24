@@ -1,26 +1,29 @@
+using CarsManager.Orleans.Web.Services.Interfaces;
+using CarsManager.Orleans.Web.Model;
 using CarsManager.Orleans.Domain;
-using CarsManager.Orleans.Application.Cqrs.Commands;
 
 namespace CarsManager.Orleans.Web.Pages;
 
 public sealed partial class Reservations
 {
-    private HashSet<CarDetails>? _cars;
-    private HashSet<CarsBookedItem>? _cartItems;
+    private HashSet<CarsDetailsViewModel>? _cars;
+    private HashSet<CarsBookedItemViewModel>? _cartItems;
 
     [Inject]
     public ComponentStateChangedObserver Observer { get; set; } = null!;
 
     [Inject]
-    public IMediator Mediator { get; set; } = null!;
+    public ICarReservationsService CarReservationsService { get; set; } = null!;
+
+    [Inject]
+    public IBookedCarsItemsService BookedCarsItemsService { get; set; } = null!;
 
     [Inject]
     public ToastService ToastService { get; set; } = null!;
 
     protected override async Task OnInitializedAsync()
     {
-        _cars = await Mediator.Send(new GetAllCarReservationsQuery());
-        _cartItems = await Mediator.Send(new GetAllBookedCarsItemsQuery());
+        await RefreshCarsDetailsAndBookedCars();
     }
 
     private async Task OnAddedToCart(string productId)
@@ -31,10 +34,9 @@ public sealed partial class Reservations
             return;
         }
 
-        if (await Mediator.Send(new AddOrUpdateItemCommand(1, car)))
+        if (await BookedCarsItemsService.AddOrUpdateItem(1, car))
         {
-            _cars = await Mediator.Send(new GetAllCarReservationsQuery());
-            _cartItems = await Mediator.Send(new GetAllBookedCarsItemsQuery());
+            await RefreshCarsDetailsAndBookedCars();
 
             await ToastService.ShowToastAsync(
                 "Added to reservation",
@@ -45,6 +47,18 @@ public sealed partial class Reservations
         }
     }
 
-    private bool IsCarAlreadyInCart(CarDetails product) =>
+    private async Task RefreshCarsDetailsAndBookedCars()
+    {
+        var carsDetails = await CarReservationsService.GetAllCarReservations();
+        var bookedCarsItems = await BookedCarsItemsService.GetAllBookedCarsItems();
+
+        if (carsDetails != null)
+            _cars = new HashSet<CarsDetailsViewModel>(carsDetails);
+
+        if (bookedCarsItems != null)
+            _cartItems = new HashSet<CarsBookedItemViewModel>(bookedCarsItems);
+    }
+
+    private bool IsCarAlreadyInCart(CarsDetailsViewModel product) =>
         _cartItems?.Any(c => c.Car.Id == product.Id) ?? false;
 }
