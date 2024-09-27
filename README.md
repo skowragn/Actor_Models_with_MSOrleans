@@ -11,7 +11,8 @@
 **1. Solution**
    - Actor Models with MS Orleans (7.0.0) and ASP.NET Core 8 Blazor (.NET 8)
 
-<img width="673" alt="image" src="https://github.com/skowragn/Actor_Models_with_MSOrleans/assets/97020391/a033a8da-1d2b-4b8c-addb-9cf710481259">
+![image](https://github.com/user-attachments/assets/017aea4c-442f-4f47-a98d-42bb3c5fde90)
+
 
 
 
@@ -86,21 +87,27 @@
     - **CarsManager.Orleans.Web**
       - Based on : https://github.com/dotnet/samples/tree/main/orleans/ShoppingCart
     - **Home**
-        ![image](https://github.com/skowragn/Actor_Models_with_MSOrleans/assets/97020391/c64e4b7d-dd83-4d88-91c7-8b1f4e8db8ef)
+      ![image](https://github.com/user-attachments/assets/a2c5bda1-0539-4709-bfce-6f0a93cdda1a)
+
       
-    - **Reservations**
-        ![image](https://github.com/skowragn/Actor_Models_with_MSOrleans/assets/97020391/86b3d254-05bf-4385-af05-f7115233106c)
-        ![image](https://github.com/skowragn/Actor_Models_with_MSOrleans/assets/97020391/b938b747-da2c-49fb-a9eb-22b26035bba3)
+    - **Cars Inventory**
+        ![image](https://github.com/user-attachments/assets/24039319-681c-4c24-8c66-4e954e70a05d)
+
+        ![image](https://github.com/user-attachments/assets/c38294a9-f107-4162-8a41-4a2145712931)
+
 
     - **Cars**
-        ![image](https://github.com/skowragn/Actor_Models_with_MSOrleans/assets/97020391/43683a13-7b2e-41a6-88ae-7e36deee5acd)
+       ![image](https://github.com/user-attachments/assets/cac9ec99-0878-422e-889c-f1987aacf83e)
+
       
-    - **Booked Car Cart**
-        ![image](https://github.com/skowragn/Actor_Models_with_MSOrleans/assets/97020391/3b0bdc5f-5657-49e1-b02e-8d375b31e1fa)
-        ![image](https://github.com/skowragn/Actor_Models_with_MSOrleans/assets/97020391/15cf547c-858b-4139-80dc-255cff25f3b7)
-        ![image](https://github.com/skowragn/Actor_Models_with_MSOrleans/assets/97020391/c4f79f05-824e-4e11-901f-7bbc9ce4d319)
+    - **Cars Bought Cart**
+       ![image](https://github.com/user-attachments/assets/5dcb2f3d-838f-444f-bb93-a2ae44caf6da)
 
 
+    - **Nav Menu with Bought Cart**
+      
+      ![image](https://github.com/user-attachments/assets/19af6653-c2a9-4975-b389-2d8d0ca22f13)
+   
     - **Tracker**
         ![image](https://github.com/skowragn/Actor_Models_with_MSOrleans/assets/97020391/15501bae-23c2-44b3-ae29-e7b587ab15d6)
         - Used from: https://learn.microsoft.com/en-us/samples/dotnet/samples/orleans-gps-device-tracker-sample/
