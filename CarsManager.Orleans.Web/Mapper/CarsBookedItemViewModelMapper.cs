@@ -5,16 +5,16 @@ namespace CarsManager.Orleans.Web.Mapper;
 
 public static class CarsBookedItemViewModelMapper
 {
-    public static CarsBookedItem ToCarsBookedItem(this CarsBookedItemViewModel carBookedItemViewModel)
+    public static CarsBoughtItem ToCarsBookedItem(this CarsBoughtItemViewModel carBookedItemViewModel)
     {
         CarDetails car = carBookedItemViewModel.Car.ToCarDetails();
-        CarsBookedItem carBookedItem = new(carBookedItemViewModel.UserId, carBookedItemViewModel.Quantity, car);
+        CarsBoughtItem carBookedItem = new(carBookedItemViewModel.UserId, carBookedItemViewModel.Quantity, car);
         return carBookedItem;
     }
 
-    public static CarsBookedItemViewModel ToCarsBookedItemViewModel(this CarsBookedItem carBookedItem)
+    public static CarsBoughtItemViewModel ToCarsBookedItemViewModel(this CarsBoughtItem carBookedItem)
     {
-        return new CarsBookedItemViewModel()
+        return new CarsBoughtItemViewModel()
         {
             UserId = carBookedItem.UserId,
             Quantity = carBookedItem.Quantity,

@@ -3,7 +3,7 @@ using MediatR;
 
 namespace CarsManager.Orleans.Application.Cqrs.Commands;
 
-public record CreateOrUpdateCarCommand(CarDetails Car) : IRequest
+public record AddOrUpdateBoughtCarsItemCommand(int Quantity, CarDetails Car) : IRequest<bool>
 {
+   
 }
-

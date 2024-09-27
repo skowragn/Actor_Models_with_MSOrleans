@@ -1,22 +1,22 @@
 ﻿@using CarsManager.Orleans.Web.Services.Interfaces;
 
-@inject IBookedCarsItemsService CarBookedItemsService;
+@inject IBoughtCarsItemsService CarBoughtItemsService;
 
 <MudNavMenu Rounded="true" Margin=Margin.Normal Class="pa-2" Color=Color.Success>
     
     <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Filled.InsertEmoticon">Home</MudNavLink>
 
-    <MudNavLink Href="Reservations" Icon="@Icons.Filled.Inventory">Reservations</MudNavLink>
+    <MudNavLink Href="CarsInventory" Icon="@Icons.Filled.Inventory">Cars Inventory</MudNavLink>
     
-    <MudNavLink Href="cars" Icon="@Icons.Filled.ProductionQuantityLimits">Cars</MudNavLink>
+    <MudNavLink Href="Cars" Icon="@Icons.Filled.ProductionQuantityLimits">Cars</MudNavLink>
     
-    <MudNavLink Href="BookedCarCart" Icon="@Icons.Filled.CarRental">
+    <MudNavLink Href="BoughtCarCart" Icon="@Icons.Filled.CarRental">
         <MudBadge Color="Color.Tertiary" Overlap="true" Bordered="true" Content="@_count" Origin="Origin.CenterRight" Class="mud-width-full">
-            Booked Car Cart
+            Cars Bought Cart
         </MudBadge>
     </MudNavLink>
     
-    <MudNavLink Href="cartracker" Icon="@Icons.Filled.GpsFixed">Tracker</MudNavLink>
+    <MudNavLink Href="cartracker" Icon="@Icons.Filled.GpsFixed"> Cars Tracker</MudNavLink>
 
 </MudNavMenu>
 
@@ -36,7 +36,7 @@
     Task UpdateCountAsync() =>
         InvokeAsync(async () =>
         {
-            _count = await CarBookedItemsService.GetCarsCount();
+            _count = await CarBoughtItemsService.GetCarBoughtCount();
             StateHasChanged();
         });
 }

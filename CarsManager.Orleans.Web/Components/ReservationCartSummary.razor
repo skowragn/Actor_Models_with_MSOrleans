@@ -44,5 +44,5 @@
     string _totalCost => Items?.Sum(x => x.TotalPrice).ToString("C2") ?? "$0.00";
 
     [Parameter, EditorRequired]
-    public HashSet<CarsBookedItemViewModel>? Items { get; set; }
+    public HashSet<CarsBoughtItemViewModel>? Items { get; set; }
 }

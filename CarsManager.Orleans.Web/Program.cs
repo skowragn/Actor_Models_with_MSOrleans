@@ -14,8 +14,9 @@ builder.Services.AddDistributedMemoryCache();
 builder.Services.AddScoped<ComponentStateChangedObserver>();
 builder.Services.AddSingleton<ToastService>();
 
-builder.Services.AddScoped<ICarReservationsService, CarReservationsService>();
-builder.Services.AddScoped<IBookedCarsItemsService, CarBookedItemsService>();
+builder.Services.AddScoped<ICarsInventoryService, CarsInventoryService>();
+builder.Services.AddScoped<IBoughtCarsItemsService, CarsBoughtItemsService>();
+builder.Services.AddScoped<ICarsService, CarsService>();
 
 builder.Services.AddSession(options =>
 {

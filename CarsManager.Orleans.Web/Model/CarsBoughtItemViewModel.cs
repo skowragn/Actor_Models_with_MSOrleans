@@ -1,6 +1,6 @@
 ﻿namespace CarsManager.Orleans.Web.Model;
 
-public class CarsBookedItemViewModel
+public class CarsBoughtItemViewModel
 {
     public string UserId { get; set; } = null!;
     public int Quantity { get; set; }

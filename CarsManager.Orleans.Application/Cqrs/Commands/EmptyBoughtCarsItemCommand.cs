@@ -2,7 +2,7 @@
 
 namespace CarsManager.Orleans.Application.Cqrs.Commands;
 
-public record EmptyCarsItemCommand : IRequest
+public record EmptyBoughtCarsItemCommand : IRequest
 {
    
 }

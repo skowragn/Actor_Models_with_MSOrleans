@@ -3,7 +3,7 @@
 namespace CarsManager.Orleans.Domain;
 
 [GenerateSerializer, Immutable]
-public sealed record class CarsBookedItem
+public sealed record class CarsBoughtItem
 (
     string UserId,
     int Quantity,

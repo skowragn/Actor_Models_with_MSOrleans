@@ -3,7 +3,7 @@ using Orleans;
 
 namespace CarsManager.Orleans.Core.Interfaces.Grains;
 
-public interface ICarsBookedItemGrain : IGrainWithStringKey
+public interface ICarsBoughtGrain : IGrainWithStringKey
 {
     /// <summary>
     /// Adds the given <paramref name="quantity"/> of the corresponding
@@ -19,7 +19,7 @@ public interface ICarsBookedItemGrain : IGrainWithStringKey
     /// <summary>
     /// Gets all the items in the shopping cart.
     /// </summary>
-    Task<HashSet<CarsBookedItem>> GetAllItemsAsync();
+    Task<HashSet<CarsBoughtItem>> GetAllItemsAsync();
 
     /// <summary>
     /// Gets the number of items in the shopping cart.

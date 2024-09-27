@@ -8,17 +8,17 @@ using Orleans.Runtime;
 namespace CarsManager.Orleans.Grains;
 
 [Reentrant]
-public sealed class CarsBookedItemGrain : Grain, ICarsBookedItemGrain
+public sealed class CarsBoughtGrain : Grain, ICarsBoughtGrain
 {
-    private readonly IPersistentState<Dictionary<string, CarsBookedItem>> _cart;
+    private readonly IPersistentState<Dictionary<string, CarsBoughtItem>> _cart;
 
-    public CarsBookedItemGrain(
+    public CarsBoughtGrain(
         [PersistentState(
-            stateName: "bookedCars",
+            stateName: "BoughtCars",
             storageName: "car-reservations")]
-        IPersistentState<Dictionary<string, CarsBookedItem>> cart) => _cart = cart;
+        IPersistentState<Dictionary<string, CarsBoughtItem>> cart) => _cart = cart;
 
-    async Task<bool> ICarsBookedItemGrain.AddOrUpdateItemAsync(int quantity, CarDetails product)
+    async Task<bool> ICarsBoughtGrain.AddOrUpdateItemAsync(int quantity, CarDetails product)
     {
         var products = GrainFactory.GetGrain<ICarGrain>(product.Id);
    
@@ -42,18 +42,18 @@ public sealed class CarsBookedItemGrain : Grain, ICarsBookedItemGrain
         return false;
     }
 
-    Task ICarsBookedItemGrain.EmptyCartAsync()
+    Task ICarsBoughtGrain.EmptyCartAsync()
     {
         _cart.State.Clear();
         return _cart.ClearStateAsync();
     }
-    Task<HashSet<CarsBookedItem>> ICarsBookedItemGrain.GetAllItemsAsync() =>
+    Task<HashSet<CarsBoughtItem>> ICarsBoughtGrain.GetAllItemsAsync() =>
         Task.FromResult(_cart.State.Values.ToHashSet());
 
-    Task<int> ICarsBookedItemGrain.GetTotalItemsInCartAsync() =>
+    Task<int> ICarsBoughtGrain.GetTotalItemsInCartAsync() =>
         Task.FromResult(_cart.State.Count);
 
-    async Task ICarsBookedItemGrain.RemoveItemAsync(CarDetails product)
+    async Task ICarsBoughtGrain.RemoveItemAsync(CarDetails product)
     {
         var products = GrainFactory.GetGrain<ICarGrain>(product.Id);
         await products.ReturnCarAsync(product.Quantity);
@@ -64,6 +64,6 @@ public sealed class CarsBookedItemGrain : Grain, ICarsBookedItemGrain
         }
     }
 
-    private CarsBookedItem ToCartItem(int quantity, CarDetails product) =>
+    private CarsBoughtItem ToCartItem(int quantity, CarDetails product) =>
         new(this.GetPrimaryKeyString(), quantity, product);
 }

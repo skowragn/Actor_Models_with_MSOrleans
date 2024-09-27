@@ -19,7 +19,10 @@ public sealed partial class Cars
     public IDialogService DialogService  { get; set; } = null!;
 
     [Inject]
-    public ICarReservationsService CarReservationsService { get; set; } = null!;
+    public ICarsInventoryService CarInventoryService { get; set; } = null!;
+
+    [Inject]
+    public ICarsService CarsService { get; set; } = null!;
 
     protected override async Task OnInitializedAsync() => await RefreshCarsDetails();    
     private void CreateNewCar()
@@ -34,7 +37,7 @@ public sealed partial class Cars
 
     private async Task OnCarUpdated(CarsDetailsViewModel car)
     {
-       await CarReservationsService.CreateOrUpdateCar(car);
+       await CarsService.CreateOrUpdateAvailableCarDetails(car);
        await RefreshCarsDetails();
 
 
@@ -48,10 +51,9 @@ public sealed partial class Cars
 
     private async Task RefreshCarsDetails()
     {
-        var carsDetails = await CarReservationsService.GetAllCarReservations();
+        var carsDetails = await CarInventoryService.GetAllAvailableCarsDetails();
 
         if (carsDetails != null)
             _cars = new HashSet<CarsDetailsViewModel>(carsDetails);
     }
-
 }

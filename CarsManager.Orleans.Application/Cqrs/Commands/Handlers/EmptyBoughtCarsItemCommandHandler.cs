@@ -5,17 +5,17 @@ using MediatR;
 
 namespace CarsManager.Orleans.Application.Extensions.Cqrs.Queries.Handlers;
 
-internal class RemoveBookedCarsItemCommandHandler(ClusterBaseServices clusterBaseServices) : IRequestHandler<RemoveBookedCarsItemCommand>
+internal class EmptyBoughtCarsItemCommandHandler(ClusterBaseServices clusterBaseServices) : IRequestHandler<EmptyBoughtCarsItemCommand>
 {
     private readonly ClusterBaseServices _clusterBaseServices = clusterBaseServices;
 
-    public Task Handle(RemoveBookedCarsItemCommand request, CancellationToken cancellationToken)
+    public Task Handle(EmptyBoughtCarsItemCommand request, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(request);
 
-       _clusterBaseServices.TryUseGrain<ICarsBookedItemGrain, Task>(
-            cart => cart.RemoveItemAsync(request.Car),
-            () => Task.CompletedTask);
+        _clusterBaseServices.TryUseGrain<ICarsBoughtGrain, Task>(
+             cart => cart.EmptyCartAsync(),
+             () => Task.CompletedTask);
 
         return Task.CompletedTask;
     }

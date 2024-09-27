@@ -1,22 +1,21 @@
 using CarsManager.Orleans.Web.Services.Interfaces;
 using CarsManager.Orleans.Web.Model;
-using CarsManager.Orleans.Domain;
 
 namespace CarsManager.Orleans.Web.Pages;
 
-public sealed partial class Reservations
-{
+public sealed partial class CarsInventory
+ {
     private HashSet<CarsDetailsViewModel>? _cars;
-    private HashSet<CarsBookedItemViewModel>? _cartItems;
+    private HashSet<CarsBoughtItemViewModel>? _cartItems;
 
     [Inject]
     public ComponentStateChangedObserver Observer { get; set; } = null!;
 
     [Inject]
-    public ICarReservationsService CarReservationsService { get; set; } = null!;
+    public ICarsInventoryService CarsInventoryService { get; set; } = null!;
 
     [Inject]
-    public IBookedCarsItemsService BookedCarsItemsService { get; set; } = null!;
+    public IBoughtCarsItemsService BoughtCarsItemsService { get; set; } = null!;
 
     [Inject]
     public ToastService ToastService { get; set; } = null!;
@@ -34,7 +33,7 @@ public sealed partial class Reservations
             return;
         }
 
-        if (await BookedCarsItemsService.AddOrUpdateItem(1, car))
+        if (await BoughtCarsItemsService.AddOrUpdateBoughtCarsItem(1, car))
         {
             await RefreshCarsDetailsAndBookedCars();
 
@@ -49,16 +48,16 @@ public sealed partial class Reservations
 
     private async Task RefreshCarsDetailsAndBookedCars()
     {
-        var carsDetails = await CarReservationsService.GetAllCarReservations();
-        var bookedCarsItems = await BookedCarsItemsService.GetAllBookedCarsItems();
+        var carsDetails = await CarsInventoryService.GetAllAvailableCarsDetails();
+        var bookedCarsItems = await BoughtCarsItemsService.GetAllBoughtCarsItems();
 
         if (carsDetails != null)
             _cars = new HashSet<CarsDetailsViewModel>(carsDetails);
 
         if (bookedCarsItems != null)
-            _cartItems = new HashSet<CarsBookedItemViewModel>(bookedCarsItems);
+            _cartItems = new HashSet<CarsBoughtItemViewModel>(bookedCarsItems);
     }
 
-    private bool IsCarAlreadyInCart(CarsDetailsViewModel product) =>
-        _cartItems?.Any(c => c.Car.Id == product.Id) ?? false;
+    private bool IsCarAlreadyInCart(CarsDetailsViewModel car) =>
+        _cartItems?.Any(c => c.Car.Id == car.Id) ?? false;
 }

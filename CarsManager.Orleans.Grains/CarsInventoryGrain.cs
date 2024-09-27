@@ -1,53 +1,54 @@
 ﻿using CarsManager.Orleans.Domain;
 using CarsManager.Orleans.Domain.Interfaces.Grains;
-using Orleans;
 using Orleans.Concurrency;
 using Orleans.Runtime;
 
 namespace CarsManager.Orleans.Grains;
 
 [Reentrant]
-public sealed class CarReservationGrain : Grain, ICarReservationGrain
+public sealed class CarsInventoryGrain : Grain, ICarInventoryGrain
 {
-    private readonly IPersistentState<HashSet<string>> _carsIds;
     private readonly Dictionary<string, CarDetails> _carCache = [];
+    private readonly IPersistentState<HashSet<string>> _state;
 
-    public CarReservationGrain(
-        [PersistentState(
-            stateName: "reservation",
+    public CarsInventoryGrain(
+       [PersistentState(
+            stateName: "Inventory",
             storageName: "car-reservations")]
-        IPersistentState<HashSet<string>> state) => _carsIds = state;
+        IPersistentState<HashSet<string>> state)
+    {
+        _state = state;
+    }
 
     public override Task OnActivateAsync(CancellationToken token) => PopulateProductCacheAsync(token);
     
-    Task<HashSet<CarDetails>> ICarReservationGrain.GetAllCarsAsync() =>
-        Task.FromResult(_carCache.Values.ToHashSet());
+    public Task<HashSet<CarDetails>> GetAllCarsAsync() => Task.FromResult(_carCache.Values.ToHashSet());
 
-    async Task ICarReservationGrain.AddOrUpdateCarAsync(CarDetails car)
+    public async Task AddOrUpdateCarAsync(CarDetails car)
     {
-        _carsIds.State.Add(car.Id);
+        _state.State.Add(car.Id);
         _carCache[car.Id] = car;
 
-        await _carsIds.WriteStateAsync();
+        await _state.WriteStateAsync();
     }
 
     public async Task RemoveCarAsync(string carId)
     {
-        _carsIds.State.Remove(carId);
+        _state.State.Remove(carId);
         _carCache.Remove(carId);
 
-        await _carsIds.WriteStateAsync();
+        await _state.WriteStateAsync();
     }
 
     private async Task PopulateProductCacheAsync(CancellationToken token)
     {
-        if (_carsIds is not { State.Count: > 0 })
+        if (_state is not { State.Count: > 0 })
         {
             return;
         }
 
         await Parallel.ForEachAsync(
-            _carsIds.State,
+            _state.State,
             async (id, _) =>
             {
                 var carGrain = GrainFactory.GetGrain<ICarGrain>(id);

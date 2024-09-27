@@ -12,7 +12,7 @@ internal class GetCarsCountQueryHandler(ClusterBaseServices clusterBaseServices)
     {
         ArgumentNullException.ThrowIfNull(request);
 
-        var carCount = _clusterBaseServices.TryUseGrain<ICarsBookedItemGrain, Task<int>>(
+        var carCount = _clusterBaseServices.TryUseGrain<ICarsBoughtGrain, Task<int>>(
            cart => cart.GetTotalItemsInCartAsync(),
            () => Task.FromResult(0));
 

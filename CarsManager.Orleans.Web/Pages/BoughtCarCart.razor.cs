@@ -1,14 +1,14 @@
-using CarsManager.Orleans.Web.Services.Interfaces;
 using CarsManager.Orleans.Web.Model;
+using CarsManager.Orleans.Web.Services.Interfaces;
 
 namespace CarsManager.Orleans.Web.Pages;
 
-    public partial class BookedCarCart
+public partial class BoughtCarCart
     {
-    private HashSet<CarsBookedItemViewModel>? _carsItems;
+    private HashSet<CarsBoughtItemViewModel>? _carsItems;
 
      [Inject]
-       public IBookedCarsItemsService BookedCarsItemsService { get; set; } = null!;
+       public IBoughtCarsItemsService CarBoughtItemsService { get; set; } = null!;
 
     [Inject]
         public ComponentStateChangedObserver Observer { get; set; } = null!;
@@ -19,10 +19,10 @@ namespace CarsManager.Orleans.Web.Pages;
     {
         return InvokeAsync(async () =>
         {
-            var bookedCarsItems = await BookedCarsItemsService.GetAllBookedCarsItems();
+            var bookedCarsItems = await CarBoughtItemsService.GetAllBoughtCarsItems();
 
-            if(bookedCarsItems!=null && bookedCarsItems.Any())
-            _carsItems = new HashSet<CarsBookedItemViewModel>(bookedCarsItems);
+            if (bookedCarsItems!=null && bookedCarsItems.Any())
+            _carsItems = new HashSet<CarsBoughtItemViewModel>(bookedCarsItems);
 
             StateHasChanged();
         });
@@ -31,7 +31,7 @@ namespace CarsManager.Orleans.Web.Pages;
     private async Task OnItemRemovedAsync(CarsDetailsViewModel car)
     {
 
-        await BookedCarsItemsService.RemoveBookedCarsItem(car);
+        await CarBoughtItemsService.RemoveBoughtCarsItem(car);
         await Observer.NotifyStateChangedAsync();
 
         _ = _carsItems?.RemoveWhere(item => item.Car.Id == car.Id);
@@ -39,13 +39,13 @@ namespace CarsManager.Orleans.Web.Pages;
 
         private async Task OnItemUpdatedAsync((int Quantity, CarsDetailsViewModel Product) tuple)
         {
-           await BookedCarsItemsService.AddOrUpdateItem(tuple.Quantity, tuple.Product);
+           await CarBoughtItemsService.AddOrUpdateBoughtCarsItem(tuple.Quantity, tuple.Product);
            await GetCartItemsAsync();
         }
 
         private async Task EmptyCartAsync()
         {
-           await BookedCarsItemsService.EmptyCarsItem();
+           await CarBoughtItemsService.EmptyBoughtCarsItem();
            await Observer.NotifyStateChangedAsync();
 
             _carsItems?.Clear();

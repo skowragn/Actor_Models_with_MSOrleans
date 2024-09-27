@@ -10,7 +10,7 @@ public class CarGrain : Grain, ICarGrain
     
     public CarGrain(
         [PersistentState(
-            stateName: "car",
+            stateName: "Car",
             storageName: "car-reservations")]
         IPersistentState<CarDetails> car) => _car = car;
 
@@ -53,13 +53,12 @@ public class CarGrain : Grain, ICarGrain
         _car.State = car;
         await _car.WriteStateAsync();
 
-        var inventoryGrain = GrainFactory.GetGrain<ICarReservationGrain>(_car.State.Category.ToString());
+        var inventoryGrain = GrainFactory.GetGrain<ICarInventoryGrain>(_car.State.Category.ToString());
         await inventoryGrain.AddOrUpdateCarAsync(car);
 
         if (oldCategory != car.Category)
         {
-            // If category changed, remove the car from the old inventory grain.
-            var oldInventoryGrain = GrainFactory.GetGrain<ICarReservationGrain>(oldCategory.ToString());
+            var oldInventoryGrain = GrainFactory.GetGrain<ICarInventoryGrain>(oldCategory.ToString());
             await oldInventoryGrain.RemoveCarAsync(car.Id);
         }
     }

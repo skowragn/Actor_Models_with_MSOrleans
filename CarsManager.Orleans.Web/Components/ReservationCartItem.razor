@@ -30,7 +30,7 @@
     string Title => $"Update {CarsBookedItem.Car.Name} quantity in cart";
 
     [Parameter, EditorRequired]
-    public CarsBookedItemViewModel CarsBookedItem { get; set; } = null!;
+    public CarsBoughtItemViewModel CarsBookedItem { get; set; } = null!;
 
     [Parameter, EditorRequired]
     public EventCallback<CarsDetailsViewModel> OnRemoved { get; set; }

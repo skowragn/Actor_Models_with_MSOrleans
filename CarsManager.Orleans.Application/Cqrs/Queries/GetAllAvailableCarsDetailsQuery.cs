@@ -3,7 +3,7 @@ using MediatR;
 
 namespace CarsManager.Orleans.Application.Cqrs.Queries;
 
-public record GetAllBookedCarsItemsQuery : IRequest<HashSet<CarsBookedItem>>
+public record GetAllAvailableCarsDetailsQuery : IRequest<HashSet<CarDetails>>
 {
    
 }

@@ -4,11 +4,11 @@ using MediatR;
 
 namespace CarsManager.Orleans.Application.Extensions.Cqrs.Queries.Handlers;
 
-internal class CreateOrUpdateCarCommandHandler(IClusterClient client) : IRequestHandler<CreateOrUpdateCarCommand>
+internal class CreateOrUpdateAvailableCarDetailsCommandHandler(IClusterClient client) : IRequestHandler<CreateOrUpdateAvailableCarDetailsCommand>
 {
     private readonly IClusterClient _client = client;
 
-    public Task Handle(CreateOrUpdateCarCommand request, CancellationToken cancellationToken)
+    public Task Handle(CreateOrUpdateAvailableCarDetailsCommand request, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(request);
 

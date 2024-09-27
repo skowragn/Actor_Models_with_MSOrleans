@@ -4,17 +4,17 @@ using MediatR;
 
 namespace CarsManager.Orleans.Application.Cqrs.Queries.Handlers;
 
-internal class GetAllCarsDetailsQueryHandler(IClusterClient client) : IRequestHandler<GetAllCarReservationsQuery, HashSet<CarDetails>>
+internal class GetAllAvailableCarsDetailsQueryHandler(IClusterClient client) : IRequestHandler<GetAllAvailableCarsDetailsQuery, HashSet<CarDetails>>
 {
     private readonly IClusterClient _client = client;
 
-    public async Task<HashSet<CarDetails>> Handle(GetAllCarReservationsQuery request, CancellationToken cancellationToken)
+    public async Task<HashSet<CarDetails>> Handle(GetAllAvailableCarsDetailsQuery request, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(request);
 
         var getAllProductsTasks = Enum.GetValues<CarCategory>()
             .Select(category =>
-                _client.GetGrain<ICarReservationGrain>(category.ToString()))
+                _client.GetGrain<ICarInventoryGrain>(category.ToString()))
             .Select(grain => grain.GetAllCarsAsync())
             .ToList();
 
